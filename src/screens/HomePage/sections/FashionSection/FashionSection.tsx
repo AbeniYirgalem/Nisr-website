@@ -49,28 +49,18 @@ export const FashionSection = (): JSX.Element => {
               className="w-full h-[45px] pl-11 pr-[100px] rounded-[50px] border border-black bg-white [font-family:'Nunito',Helvetica] font-normal text-[#bcb8b8] text-2xl"
             />
             <Button className="absolute right-0 top-0 h-[45px] w-[89px] bg-[#fa6bad9e] hover:bg-[#fa6bad] rounded-[50px] [font-family:'Nunito',Helvetica] font-semibold text-black text-base">
-              SearchIcon
+              Search
             </Button>
           </div>
         </div>
 
         <nav className="flex items-center gap-3">
           <button className="flex flex-col items-center gap-1 relative">
-            <div className="relative">
               <img
                 className="w-[34px] h-[33px]"
                 alt="Notification"
                 src="/iconamoon-notification.svg"
               />
-              <img
-                className="absolute w-[47.73%] h-[38.89%] top-[5.30%] left-[45.45%]"
-                alt="Vector"
-                src="/vector-3.svg"
-              />
-              <div className="absolute top-px left-[26px] [font-family:'Nunito',Helvetica] font-semibold text-white text-xs tracking-[0] leading-[normal]">
-                99
-              </div>
-            </div>
             <span className="[font-family:'Nunito',Helvetica] font-normal text-black text-xs tracking-[0.40px] leading-4 whitespace-nowrap">
               Notification
             </span>
