@@ -1,5 +1,5 @@
 {
-  "homepage": "https://amanuelyosef.github.io/Nisr-website/",
+  "homepage": "https://amanuelyosef.github.io/Nisr-website",
   "version": "1.0.0",
   "source": "./index.html",
   "type": "module",
@@ -27,11 +27,12 @@
     "@types/react-dom": "18.2.0",
     "@vitejs/plugin-react": "4.3.4",
     "autoprefixer": "^10.4.22",
-    "esbuild": "0.24.0",
+    "esbuild": "^0.27.0",
     "gh-pages": "^6.3.0",
     "globals": "15.12.0",
     "tailwindcss": "3.4.16",
-    "vite": "6.0.4"
+    "typescript": "^5.9.3",
+    "vite": "^6.4.1"
   },
   "alias": {
     "@/*": "./src/components/ui/$1"
