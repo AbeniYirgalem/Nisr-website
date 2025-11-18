@@ -1,77 +1,36 @@
 import { MoreHorizontalIcon } from "lucide-react";
 import React from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
+import displayElectronics from "../../../../assets/images/display-electronics-image.png";
+import displayFashion from "../../../../assets/images/display-fashion-image-1.png";
+import displayFurniture from "../../../../assets/images/display-furniture-image.png";
+import image35 from "../../../../assets/images/image-35.png";
+import image58 from "../../../../assets/images/image-58.png";
+import image59 from "../../../../assets/images/image-59.png";
+import image61 from "../../../../assets/images/image-61.png";
+import image38 from "../../../../assets/images/image-38.png";
+import image60 from "../../../../assets/images/image-60.png";
+import image63 from "../../../../assets/images/image-63.png";
+import image65 from "../../../../assets/images/image-65.png";
+import image64 from "../../../../assets/images/image-64.png";
 
 const topImages = [
-  {
-    src: "public/display-electronics-image.png",
-    alt: "Display electronics",
-    label: "Electronics",
-  },
-  {
-    src: "public/display-fashion-image-1.png",
-    alt: "Display fashion",
-    label: "Fashion",
-  },
-  {
-    src: "public/display-furniture-image.png",
-    alt: "Display furniture",
-    label: "Furniture",
-  },
+  { src: displayElectronics, alt: "Display electronics", label: "Electronics" },
+  { src: displayFashion, alt: "Display fashion", label: "Fashion" },
+  { src: displayFurniture, alt: "Display furniture", label: "Furniture" },
 ];
 
 const categories = [
-  {
-    src: "public/image-35.png",
-    alt: "Electronics",
-    label: "Electronics",
-  },
-  {
-    src: "public/image-58.png",
-    alt: "Stationary",
-    label: "Stationary",
-  },
-  {
-    src: "public/image-59.png",
-    alt: "Food and Drink",
-    label: "Food and Drink",
-  },
-  {
-    src: "public/image-61.png",
-    alt: "Health and Beauty",
-    label: "Health and Beauty",
-  },
-  {
-    src: "public/image-38.png",
-    alt: "Services",
-    label: "Services",
-  },
-  {
-    src: "public/image-60.png",
-    alt: "Fashion",
-    label: "Fashion",
-  },
-  {
-    src: "public/image-63.png",
-    alt: "Lost and Found",
-    label: "Lost and Found",
-  },
-  {
-    src: "public/image-65.png",
-    alt: "Sport and Outdoor",
-    label: "Sport and Outdoor",
-  },
-  {
-    src: "public/image-64.png",
-    alt: "Books and Art",
-    label: "Books and Art",
-  },
-  {
-    src: null,
-    alt: "More",
-    label: "More",
-    isMore: true,
-  },
+  { src: image35, alt: "Electronics", label: "Electronics" },
+  { src: image58, alt: "Stationary", label: "Stationary" },
+  { src: image59, alt: "Food and Drink", label: "Food and Drink" },
+  { src: image61, alt: "Health and Beauty", label: "Health and Beauty" },
+  { src: image38, alt: "Services", label: "Services" },
+  { src: image60, alt: "Fashion", label: "Fashion" },
+  { src: image63, alt: "Lost and Found", label: "Lost and Found" },
+  { src: image65, alt: "Sport and Outdoor", label: "Sport and Outdoor" },
+  { src: image64, alt: "Books and Art", label: "Books and Art" },
+  { src: null, alt: "More", label: "More", isMore: true },
 ];
 
 export const CategoriesSection = (): JSX.Element => {

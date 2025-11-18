@@ -2,26 +2,38 @@ import { ChevronRightIcon } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "../../../../components/ui/card";
+import unsplashPdds9_1 from "../../../../assets/images/unsplash-pdds9xswyom-1.png";
+import unsplashYtb from "../../../../assets/images/unsplash-ytbmycczqrs.png";
+import unsplash9u18_1 from "../../../../assets/images/unsplash-9u18fiowwbw-1.png";
+import unsplashNovn from "../../../../assets/images/unsplash-novnxxmdni0.svg";
+import unsplash9u18 from "../../../../assets/images/unsplash-9u18fiowwbw.png";
+import unsplashYtb_1 from "../../../../assets/images/unsplash-ytbmycczqrs-1.png";
+import rectangle8 from "../../../../assets/images/rectangle-8.png";
+import unsplash0vsk2 from "../../../../assets/images/unsplash-0vsk2-9dkqo.png";
+import unsplashPdds9 from "../../../../assets/images/unsplash-pdds9xswyom.png";
+import unsplashPdds9_2 from "../../../../assets/images/unsplash-pdds9xswyom-2.png";
+import image18 from "../../../../assets/images/image-18.png";
+import unsplash0vsk2_1 from "../../../../assets/images/unsplash-0vsk2-9dkqo-1.png";
 
 const techProducts = [
-  { id: 1, image: "public/unsplash-pdds9xswyom-1.png", price: "ETB 1,000" },
-  { id: 2, image: "public/unsplash-ytbmycczqrs.png", price: "ETB 1,000" },
-  { id: 3, image: "public/unsplash-9u18fiowwbw-1.png", price: "ETB 1,000" },
-  { id: 4, image: "public/unsplash-novnxxmdni0.svg", price: "ETB 1,000" },
-  { id: 5, image: "public/unsplash-9u18fiowwbw.png", price: "ETB 1,000" },
-  { id: 6, image: "public/unsplash-ytbmycczqrs-1.png", price: "ETB 1,000" },
+  { id: 1, image: unsplashPdds9_1, price: "ETB 1,000" },
+  { id: 2, image: unsplashYtb, price: "ETB 1,000" },
+  { id: 3, image: unsplash9u18_1, price: "ETB 1,000" },
+  { id: 4, image: unsplashNovn, price: "ETB 1,000" },
+  { id: 5, image: unsplash9u18, price: "ETB 1,000" },
+  { id: 6, image: unsplashYtb_1, price: "ETB 1,000" },
 ];
 
 const fashionProducts = [
-  { id: 7, image: "public/rectangle-8.png", price: "ETB 1,000" },
-  { id: 8, image: "public/unsplash-0vsk2-9dkqo.png", price: "ETB 1,000" },
-  { id: 9, image: "public/unsplash-pdds9xswyom.png", price: "ETB 1,000" },
+  { id: 7, image: rectangle8, price: "ETB 1,000" },
+  { id: 8, image: unsplash0vsk2, price: "ETB 1,000" },
+  { id: 9, image: unsplashPdds9, price: "ETB 1,000" },
 ];
 
 const stationaryProducts = [
-  { id: 10, image: "public/unsplash-pdds9xswyom-2.png", price: "ETB 1,000" },
-  { id: 11, image: "public/image-18.png", price: "ETB 1,000" },
-  { id: 12, image: "public/unsplash-0vsk2-9dkqo-1.png", price: "ETB 1,000" },
+  { id: 10, image: unsplashPdds9_2, price: "ETB 1,000" },
+  { id: 11, image: image18, price: "ETB 1,000" },
+  { id: 12, image: unsplash0vsk2_1, price: "ETB 1,000" },
 ];
 
 export const TechProductsSection = (): JSX.Element => {
