@@ -1,7 +1,10 @@
 import { SearchIcon } from "lucide-react";
 import { Button } from "../button";
 import { Input } from "../input";
-
+import iconNotification from "../../../assets/images/iconamoon-notification.svg";
+import iconCart from "../../../assets/images/shopping-cart-2.svg";
+import iconChat from "../../../assets/images/ph-chat-text.svg";
+import iconProfile from "../../../assets/images/iconamoon-profile-bold.svg";
 
 export const FashionSection = (): JSX.Element => {
   return (
@@ -29,11 +32,11 @@ export const FashionSection = (): JSX.Element => {
 
         <nav className="flex items-center gap-3">
           <button className="flex flex-col items-center gap-1 relative">
-              <img
-                className="w-[34px] h-[33px]"
-                alt="Notification"
-                src="/Nisr-website/public/iconamoon-notification.svg"
-              />
+            <img
+              className="w-[34px] h-[33px]"
+              alt="Notification"
+              src={iconNotification}
+            />
             <span className="[font-family:'Nunito',Helvetica] font-normal text-black text-xs tracking-[0.40px] leading-4 whitespace-nowrap">
               Notification
             </span>
@@ -43,7 +46,7 @@ export const FashionSection = (): JSX.Element => {
             <img
               className="w-[34px] h-[30px]"
               alt="Shopping cart"
-              src="/Nisr-website/public/shopping-cart-2.svg"
+              src={iconCart}
             />
             <span className="[font-family:'Nunito',Helvetica] font-normal text-lightgray-11 text-xs text-center tracking-[0.40px] leading-4">
               Cart
@@ -51,11 +54,7 @@ export const FashionSection = (): JSX.Element => {
           </button>
 
           <button className="flex flex-col items-center gap-[5px]">
-            <img
-              className="w-[29px] h-[29px]"
-              alt="Chat"
-              src="/Nisr-website/public/ph-chat-text.svg"
-            />
+            <img className="w-[29px] h-[29px]" alt="Chat" src={iconChat} />
             <span className="[font-family:'Nunito',Helvetica] font-normal text-black text-xs text-center tracking-[0.40px] leading-4 whitespace-nowrap">
               Chat
             </span>
@@ -65,7 +64,7 @@ export const FashionSection = (): JSX.Element => {
             <img
               className="w-[33px] h-[31px]"
               alt="Profile"
-              src="/Nisr-website/public/iconamoon-profile-bold.svg"
+              src={iconProfile}
             />
             <span className="[font-family:'Nunito',Helvetica] font-normal text-black text-xs text-center tracking-[0.40px] leading-4 whitespace-nowrap">
               Abebe

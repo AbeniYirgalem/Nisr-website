@@ -4,36 +4,39 @@ import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { TrendingAdsSection } from "../../components/ui/TrendingAdsSection";
 import { FashionSection } from "../../components/ui/FashionSection";
-
+import img19_2 from "../../assets/images/image-19-2.png";
+import img23_1 from "../../assets/images/image-23-1.png";
+import img21_2 from "../../assets/images/image-21-2.png";
+import img24_1 from "../../assets/images/image-24-1.png";
 
 const discoverMoreProducts = [
   {
     id: 1,
-    image: "/Nisr-website/public/image-19-2.png",
+    image: img19_2,
     description: "Brand new Lamborghini 2025 made in USA high speed and ...",
     price: "ETB 1,000",
   },
   {
     id: 2,
-    image: "/Nisr-website/public/image-23-1.png",
+    image: img23_1,
     description: "Brand new Lamborghini 2025 made in USA high speed and ...",
     price: "ETB 1,000",
   },
   {
     id: 3,
-    image: "/Nisr-website/public/image-21-2.png",
+    image: img21_2,
     description: "Brand new Lamborghini 2025 made in USA high speed and ...",
     price: "ETB 1,000",
   },
   {
     id: 4,
-    image: "/Nisr-website/public/image-24-1.png",
+    image: img24_1,
     description: "Brand new Lamborghini 2025 made in USA high speed and ...",
     price: "ETB 1,000",
   },
   {
     id: 5,
-    image: "/Nisr-website/public/image-19-2.png",
+    image: img19_2,
     description: "Brand new Lamborghini 2025 made in USA high speed and ...",
     price: "ETB 1,000",
   },
@@ -45,15 +48,15 @@ export const ProductDetailPage = (): JSX.Element => {
   return (
     <div className="bg-[#F0F0F0] min-h-screen">
       <div className="bg-white overflow-hidden w-full min-w-[1440px] flex flex-col">
-          <TrendingAdsSection />
-          <FashionSection />
+        <TrendingAdsSection />
+        <FashionSection />
       </div>
 
       <div className="max-w-[1320px] mx-auto px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8">
           <div className="rounded-[20px] overflow-hidden bg-gray-100">
             <img
-              src="/Nisr-website/public/image-19-2.png"
+              src={img19_2}
               alt="Product"
               className="w-full h-[600px] object-cover"
             />
@@ -62,7 +65,6 @@ export const ProductDetailPage = (): JSX.Element => {
           <div className="flex flex-col gap-6">
             <Card className="bg-white border-0 shadow-sm rounded-[15px]">
               <CardContent className="p-6">
-              
                 <h1 className="[font-family:'Nunito',Helvetica] font-extrabold text-[#fc3850] text-5xl tracking-[0] leading-none">
                   ETB 1000
                 </h1>
@@ -71,7 +73,8 @@ export const ProductDetailPage = (): JSX.Element => {
                 </div>
 
                 <p className="[font-family:'Nunito',Helvetica] font-bold text-black text-xl tracking-[0] leading-7 mb-4">
-                  Brand new Lamborghini 2025 made in USA high speed and durability
+                  Brand new Lamborghini 2025 made in USA high speed and
+                  durability
                 </p>
 
                 <div className="flex items-center gap-4 mb-2">
@@ -127,7 +130,6 @@ export const ProductDetailPage = (): JSX.Element => {
                     <PhoneIcon className="w-5 h-5 mr-2" />
                     Call
                   </Button>
-          
                 </div>
               </CardContent>
             </Card>
