@@ -7,7 +7,7 @@ import { ProductDetailPage } from "./screens/ProductDetailPage";
 
 createRoot(document.getElementById("app") as HTMLElement).render(
   <StrictMode>
-    <BrowserRouter basename="/Nisr-website/">
+    <BrowserRouter basename="/">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
