@@ -109,7 +109,7 @@ export const SellerShopPage = (): JSX.Element => {
       {/* Banner Image */}
       <div className="w-full h-[150px] bg-gradient-to-b from-[#e8e8e8] to-[#f5f5f5] relative overflow-hidden">
         <img
-          src="https://images.pexels.com/photos/3832607/pexels-photo-3832607.jpeg?auto=compress&cs=tinysrgb&w=600"
+          src="https://tse2.mm.bing.net/th/id/OIP.U5nFcRcUdPctXJs_3ft2KQHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"
           alt="Shop"
           className="w-full h-full object-cover"
         />
