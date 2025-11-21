@@ -6,7 +6,7 @@ import { defineConfig } from "vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [tailwindcss(), react()],
-  base: "/Nisr-website/",
+  base: "/",
   resolve: {
     alias: {
       "@": resolve(__dirname, "src"),
