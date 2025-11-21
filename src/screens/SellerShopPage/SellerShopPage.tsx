@@ -104,50 +104,65 @@ export const SellerShopPage = (): JSX.Element => {
       <div className="max-w-[1440px] mx-auto px-8 py-8">
         <div className="grid grid-cols-[280px_1fr] gap-8">
           <aside className="space-y-6">
-            <Card className="bg-white border-0 shadow-sm rounded-[15px] p-0 overflow-hidden">
-              <div className="p-6">
-                <div className="flex flex-col items-center mb-6">
-                  <div className="w-[100px] h-[100px] bg-[#fe2188] rounded-full flex items-center justify-center mb-4">
-                    <span className="[font-family:'Nunito',Helvetica] font-bold text-white text-5xl">
-                      A
-                    </span>
-                  </div>
-                  <h2 className="[font-family:'Nunito',Helvetica] font-bold text-black text-xl tracking-[0] leading-[normal] text-center mb-2">
-                    Abebe Kebede Shop
-                  </h2>
-                  <p className="[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-sm tracking-[0] leading-[normal] text-center mb-1">
-                    Last seen: 1 week ago
-                  </p>
-                  <p className="[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-sm tracking-[0] leading-[normal] text-center">
-                    26 days in Nisr Market
-                  </p>
+            <Card className="bg-white border-0 shadow-sm rounded-[24px] p-0 overflow-hidden">
+              <div className="relative">
+                <div className="w-full h-[150px] bg-gradient-to-b from-[#e8e8e8] to-[#f5f5f5] relative overflow-hidden">
+                  <img
+                    src="https://images.pexels.com/photos/3832607/pexels-photo-3832607.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    alt="Shop"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/20"></div>
                 </div>
 
-                <Button className="w-full h-12 bg-[#fe2188] hover:bg-[#fe2188]/90 rounded-[10px] [font-family:'Nunito',Helvetica] font-bold text-white text-base tracking-[0] leading-[normal] mb-4">
-                  Call
-                </Button>
+                <div className="px-6 pb-6">
+                  <div className="flex flex-col items-center -mt-16 mb-4">
+                    <div className="w-[120px] h-[120px] bg-[#1E88E5] rounded-full flex items-center justify-center mb-4 border-4 border-white shadow-lg">
+                      <img
+                        src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=200"
+                        alt="Seller"
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    </div>
+                    <h2 className="[font-family:'Nunito',Helvetica] font-bold text-[#120b0b] text-2xl tracking-[0] leading-[normal] text-center mb-1">
+                      Abebe Kebede Shop
+                    </h2>
+                    <p className="[font-family:'Nunito',Helvetica] font-normal text-[#757575] text-sm tracking-[0] leading-[normal] text-center mb-1">
+                      Last seen: 1 week ago
+                    </p>
+                    <p className="[font-family:'Nunito',Helvetica] font-normal text-[#757575] text-sm tracking-[0] leading-[normal] text-center">
+                      26 days in Nisr Market
+                    </p>
+                  </div>
 
-                <Button
-                  variant="outline"
-                  className="w-full h-12 bg-[#f5f5f5] border border-[#e0e0e0] hover:bg-[#f0f0f0] rounded-[10px] [font-family:'Nunito',Helvetica] font-semibold text-[#313131] text-base tracking-[0] leading-[normal] flex items-center justify-center gap-2"
-                >
-                  <span>Feedback</span>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M9 6L15 12L9 18"
-                      stroke="#313131"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </Button>
+                  <div className="space-y-3 pt-2">
+                    <Button className="w-full h-14 bg-white border-3 border-[#FF5252] hover:bg-[#FFF3E0] rounded-[16px] [font-family:'Nunito',Helvetica] font-bold text-[#FF5252] text-lg tracking-[0] leading-[normal] transition-colors">
+                      Call
+                    </Button>
+
+                    <Button
+                      variant="outline"
+                      className="w-full h-14 bg-[#E8E8E8] border-0 hover:bg-[#D8D8D8] rounded-[16px] [font-family:'Nunito',Helvetica] font-semibold text-[#120b0b] text-base tracking-[0] leading-[normal] flex items-center justify-center gap-2 transition-colors"
+                    >
+                      <span>Feedback</span>
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9 6L15 12L9 18"
+                          stroke="#120b0b"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </Button>
+                  </div>
+                </div>
               </div>
             </Card>
           </aside>
