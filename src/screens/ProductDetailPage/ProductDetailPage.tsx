@@ -6,6 +6,7 @@ import { Card, CardContent } from "../../components/ui/card";
 import { TrendingAdsSection } from "../../components/ui/TrendingAdsSection";
 import { FashionSection } from "../../components/ui/FashionSection";
 import AppDownloadPopup from "../../components/ui/AppDownloadPopup";
+import WaitlistPopup from "../../components/ui/WaitlistPopup";
 import img19_2 from "../../assets/images/image-19-2.png";
 import img23_1 from "../../assets/images/image-23-1.png";
 import img21_2 from "../../assets/images/image-21-2.png";
@@ -47,18 +48,27 @@ const discoverMoreProducts = [
 export const ProductDetailPage = (): JSX.Element => {
   const navigate = useNavigate();
   const [showDownloadPopup, setShowDownloadPopup] = useState(false);
+  const [showWaitlistPopup, setShowWaitlistPopup] = useState(false);
 
   return (
     <div className="bg-[#F0F0F0] min-h-screen">
       <div className="bg-white overflow-hidden w-full min-w-[1440px] flex flex-col">
-        <TrendingAdsSection onDownloadClick={() => setShowDownloadPopup(true)} />
+        <TrendingAdsSection
+          onDownloadClick={() => setShowDownloadPopup(true)}
+          onWaitlistClick={() => setShowWaitlistPopup(true)}
+        />
         <FashionSection onShowDownloadPopup={() => setShowDownloadPopup(true)} />
       </div>
 
       <AppDownloadPopup
         isOpen={showDownloadPopup}
         onClose={() => setShowDownloadPopup(false)}
+        onWaitlistClick={() => {
+          setShowDownloadPopup(false);
+          setShowWaitlistPopup(true);
+        }}
       />
+      <WaitlistPopup isOpen={showWaitlistPopup} onClose={() => setShowWaitlistPopup(false)} />
 
       <div className="max-w-[1320px] mx-auto px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8">

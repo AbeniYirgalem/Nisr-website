@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 interface AppDownloadPopupProps {
   isOpen: boolean;
   onClose: () => void;
+  onWaitlistClick?: () => void;
 }
 
 const brandColor = '#FE2188';
 
-const AppDownloadPopup: React.FC<AppDownloadPopupProps> = ({ isOpen, onClose }) => {
+const AppDownloadPopup: React.FC<AppDownloadPopupProps> = ({ isOpen, onClose, onWaitlistClick }) => {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -69,6 +70,7 @@ const AppDownloadPopup: React.FC<AppDownloadPopupProps> = ({ isOpen, onClose }) 
                 backgroundColor: `${brandColor}1A`, // 1A is roughly 10% opacity in Hex
                 color: brandColor 
               }}
+              onClick={onWaitlistClick}
               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = `${brandColor}26`} // Darker on hover
               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = `${brandColor}1A`}
             >
