@@ -43,13 +43,13 @@ export const TechProductsSection = (): JSX.Element => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1320px] mx-auto">
         <Card className="bg-[#ffc2d3] border-0 rounded-[10px]">
           <CardContent className="p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[32px] tracking-[0.40px] leading-none">
+            <div className="flex items-center gap-2 mb-2">
+              <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[28px] tracking-[0.40px] leading-none">
                 Tech Products
               </h2>
               <ChevronRightIcon className="w-5 h-5 text-black mt-1" />
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-4 gap-y-10 pt-8">
               {techProducts.map((product) => (
                 <Card
                   key={product.id}
@@ -63,7 +63,7 @@ export const TechProductsSection = (): JSX.Element => {
                       className="w-full h-[157px] object-cover rounded-t-lg"
                     />
                     <div className="p-2 text-center">
-                      <span className="[font-family:'Nunito',Helvetica] font-extrabold text-[#fc3850] text-xs tracking-[0] leading-4">
+                      <span className="[font-family:'Nunito',Helvetica] font-extrabold text-[#fc3850] text-[18px] tracking-[0] leading-4">
                         {product.price}
                       </span>
                     </div>
@@ -78,7 +78,7 @@ export const TechProductsSection = (): JSX.Element => {
           <Card className="bg-[#abcfff] border-0 rounded-[10px]">
             <CardContent className="p-5">
               <div className="flex items-center gap-2 mb-4">
-                <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[32px] tracking-[0.40px] leading-none">
+                <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[26px] tracking-[0.40px] leading-none">
                   Fashion
                 </h2>
                 <ChevronRightIcon className="w-5 h-5 text-black mt-1" />
@@ -86,23 +86,23 @@ export const TechProductsSection = (): JSX.Element => {
               <div className="grid grid-cols-3 gap-4">
                 {fashionProducts.map((product) => (
                   <Card
-                    key={product.id}
-                    className="bg-white border-0 overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
-                    onClick={() => navigate(`/product/${product.id}`)}
-                  >
-                    <CardContent className="p-0">
-                      <img
-                        src={product.image}
-                        alt="Product"
-                        className="w-full h-[166px] object-cover rounded-t-lg"
-                      />
-                      <div className="p-2 text-center">
-                        <span className="[font-family:'Nunito',Helvetica] font-extrabold text-[#fc3850] text-xs tracking-[0] leading-4">
-                          {product.price}
-                        </span>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  key={product.id}
+                  className="bg-white border-0 overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+                  onClick={() => navigate(`/product/${product.id}`)}
+                >
+                  <CardContent className="p-0">
+                    <img
+                      src={product.image}
+                      alt="Product"
+                      className="w-full h-[157px] object-cover rounded-t-lg"
+                    />
+                    <div className="p-2 text-center">
+                      <span className="[font-family:'Nunito',Helvetica] font-extrabold text-[#fc3850] text-[18px] tracking-[0] leading-4">
+                        {product.price}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
                 ))}
               </div>
             </CardContent>
@@ -111,7 +111,7 @@ export const TechProductsSection = (): JSX.Element => {
           <Card className="bg-[#b7ffcf] border-0 rounded-[10px]">
             <CardContent className="p-5">
               <div className="flex items-center gap-2 mb-4">
-                <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[32px] tracking-[0.40px] leading-none">
+                <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[26px] tracking-[0.40px] leading-none">
                   Stationary
                 </h2>
                 <ChevronRightIcon className="w-5 h-5 text-black mt-1" />
@@ -119,23 +119,23 @@ export const TechProductsSection = (): JSX.Element => {
               <div className="grid grid-cols-3 gap-4">
                 {stationaryProducts.map((product) => (
                   <Card
-                    key={product.id}
-                    className="bg-white border-0 overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
-                    onClick={() => navigate(`/product/${product.id}`)}
-                  >
-                    <CardContent className="p-0">
-                      <img
-                        src={product.image}
-                        alt="Product"
-                        className="w-full h-[151px] object-cover rounded-t-lg"
-                      />
-                      <div className="p-2 text-center">
-                        <span className="[font-family:'Nunito',Helvetica] font-extrabold text-[#fc3850] text-xs tracking-[0] leading-4">
-                          {product.price}
-                        </span>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  key={product.id}
+                  className="bg-white border-0 overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+                  onClick={() => navigate(`/product/${product.id}`)}
+                >
+                  <CardContent className="p-0">
+                    <img
+                      src={product.image}
+                      alt="Product"
+                      className="w-full h-[157px] object-cover rounded-t-lg"
+                    />
+                    <div className="p-2 text-center">
+                      <span className="[font-family:'Nunito',Helvetica] font-extrabold text-[#fc3850] text-[18px] tracking-[0] leading-4">
+                        {product.price}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
                 ))}
               </div>
             </CardContent>
