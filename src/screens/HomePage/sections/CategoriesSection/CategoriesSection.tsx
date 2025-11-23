@@ -80,43 +80,45 @@ export const CategoriesSection = (): JSX.Element => {
         </div>
 
         <div className="flex flex-col gap-5">
-          <h2 className="[font-family:'Nunito',Helvetica] font-bold text-black text-[28px] tracking-[0] leading-[normal] px-22">
+          <h2 className="[font-family:'Nunito',Helvetica] font-bold text-black text-lg sm:text-[28px] tracking-[0] leading-[normal] px-2">
             Categories
           </h2>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-[1000px] mx-auto">
-            {categoryCards.map((category, index) => (
-              <Card
-                key={index}
-                className="bg-white rounded-[10px] border-0 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-              >
-                <CardContent className="p-2 flex flex-col items-center justify-center h-[120px] gap-2">
-                  {"isToggle" in category ? (
-                    <button
-                      type="button"
-                      className="w-full flex flex-col items-center justify-center text-[#151414]"
-                      onClick={() => setShowAllCategories((prev) => !prev)}
-                    >
-                      {showAllCategories ? (
-                        <ChevronUpIcon className="w-[60px] h-[60px] text-gray-700 mt-2" />
-                      ) : (
-                        <ChevronDownIcon className="w-[70px] h-[70px] text-gray-700 mt-3" />
-                      )}
-                    </button>
-                  ) : (
-                    <img
-                      className="w-full h-[80px] object-contain"
-                      alt={category.alt}
-                      src={category.src}
-                    />
-                  )}
-                  <div className="[font-family:'Nunito',Helvetica] font-semibold text-[#151414] text-sm tracking-[0] leading-[normal] text-center px-1 line-clamp-2">
-                    {category.label}
-                  </div>
-                  {/* No toggle label button below icon, icon only */}
-                </CardContent>
-              </Card>
-            ))}
+          <div className="w-full overflow-x-auto pb-2 scrollbar-hide">
+            <div className="flex gap-3 lg:grid lg:grid-cols-5 lg:gap-6">
+              {categoryCards.map((category, index) => (
+                <Card
+                  key={index}
+                  className="bg-white rounded-[8px] border-0 shadow-sm hover:shadow-md transition-shadow cursor-pointer min-w-[90px] max-w-[110px] flex-shrink-0 lg:min-w-0 lg:max-w-none"
+                >
+                  <CardContent className="p-1 flex flex-col items-center justify-center h-[90px] gap-1 sm:p-2 sm:h-[100px] md:h-[120px] sm:gap-2">
+                    {"isToggle" in category ? (
+                      <button
+                        type="button"
+                        className="w-full flex flex-col items-center justify-center text-[#151414]"
+                        onClick={() => setShowAllCategories((prev) => !prev)}
+                      >
+                        {showAllCategories ? (
+                          <ChevronUpIcon className="w-8 h-8 text-gray-700 mt-1 sm:w-[60px] sm:h-[60px] sm:mt-2" />
+                        ) : (
+                          <ChevronDownIcon className="w-10 h-10 text-gray-700 mt-1 sm:w-[70px] sm:h-[70px] sm:mt-3" />
+                        )}
+                      </button>
+                    ) : (
+                      <img
+                        className="w-full h-10 object-contain sm:h-[60px] md:h-[80px]"
+                        alt={category.alt}
+                        src={category.src}
+                      />
+                    )}
+                    <div className="[font-family:'Nunito',Helvetica] font-semibold text-[#151414] text-xs sm:text-sm tracking-[0] leading-[normal] text-center px-1 line-clamp-2">
+                      {category.label}
+                    </div>
+                    {/* No toggle label button below icon, icon only */}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </div>
