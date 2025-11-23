@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "../../components/ui/card";
-import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { TrendingAdsSection } from "../../components/ui/TrendingAdsSection";
 import { FashionSection } from "../../components/ui/FashionSection";
@@ -128,89 +127,97 @@ export const SearchResultsPage = (): JSX.Element => {
       <div className="max-w-[1440px] mx-auto px-8 py-8">
         <div className="grid grid-cols-[280px_1fr] gap-8">
           <aside className="space-y-6">
-            <div>
-              <h3 className="[font-family:'Nunito',Helvetica] font-bold text-black text-xl tracking-[0] leading-[normal] mb-4">
-                Category Filters
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() =>
-                      toggleFilter(
-                        category,
-                        selectedCategories,
-                        setSelectedCategories
-                      )
-                    }
-                    className={`px-4 py-2 rounded-[50px] border [font-family:'Nunito',Helvetica] font-medium text-sm tracking-[0] leading-[normal] transition-colors ${
-                      selectedCategories.includes(category)
-                        ? "bg-[#fe2188] text-white border-[#fe2188]"
-                        : "bg-[#f5f5f5] text-[#313131] border-[#e0e0e0] hover:border-[#fe2188]"
-                    }`}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-            </div>
 
-            <div>
-              <h3 className="[font-family:'Nunito',Helvetica] font-bold text-black text-xl tracking-[0] leading-[normal] mb-4">
-                Price Filter
-              </h3>
-              <div className="flex items-center gap-3">
-                <Input
-                  type="text"
-                  placeholder="min"
-                  value={minPrice}
-                  onChange={(e) => setMinPrice(e.target.value)}
-                  className="h-10 bg-[#f5f5f5] border-[#e0e0e0] rounded-md [font-family:'Nunito',Helvetica] font-normal text-[#313131] text-sm"
-                />
-                <span className="[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-lg">
-                  —
-                </span>
-                <Input
-                  type="text"
-                  placeholder="max"
-                  value={maxPrice}
-                  onChange={(e) => setMaxPrice(e.target.value)}
-                  className="h-10 bg-[#f5f5f5] border-[#e0e0e0] rounded-md [font-family:'Nunito',Helvetica] font-normal text-[#313131] text-sm"
-                />
-              </div>
-            </div>
-
-            <div>
-              <h3 className="[font-family:'Nunito',Helvetica] font-bold text-black text-xl tracking-[0] leading-[normal] mb-4">
-                Condition
-              </h3>
-              <div className="space-y-2">
-                {conditions.map((condition) => (
-                  <label
-                    key={condition}
-                    className="flex items-center gap-2 cursor-pointer"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={selectedConditions.includes(condition)}
-                      onChange={() =>
+            <Card className="bg-white rounded-[15px] border border-[#e0e0e0] shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+              <CardContent className = "p-4">
+                <h3 className="[font-family:'Nunito',Helvetica] font-bold text-black text-xl tracking-[0] leading-[normal] mb-4">
+                  Category Filters
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() =>
                         toggleFilter(
-                          condition,
-                          selectedConditions,
-                          setSelectedConditions
+                          category,
+                          selectedCategories,
+                          setSelectedCategories
                         )
                       }
-                      className="w-4 h-4 rounded border-[#e0e0e0] text-[#fe2188] focus:ring-[#fe2188]"
-                    />
-                    <span className="[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-base tracking-[0] leading-[normal]">
-                      {condition}
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </div>
+                      className={`px-4 py-2 rounded-[50px] border [font-family:'Nunito',Helvetica] font-medium text-sm tracking-[0] leading-[normal] transition-colors ${
+                        selectedCategories.includes(category)
+                          ? "bg-[#fe2188] text-white border-[#fe2188]"
+                          : "bg-[#f5f5f5] text-[#313131] border-[#e0e0e0] hover:border-[#fe2188]"
+                      }`}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-            <div>
+          <Card className="bg-white rounded-[15px] border border-[#e0e0e0] shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <CardContent className = "p-4">
+                <h3 className="[font-family:'Nunito',Helvetica] font-bold text-black text-xl tracking-[0] leading-[normal] mb-4">
+                  Price Filter
+                </h3>
+                <div className="flex items-center gap-3">
+                  <Input
+                    type="text"
+                    placeholder="min"
+                    value={minPrice}
+                    onChange={(e) => setMinPrice(e.target.value)}
+                    className="h-10 bg-[#f5f5f5] border-[#e0e0e0] rounded-md [font-family:'Nunito',Helvetica] font-normal text-[#313131] text-sm"
+                  />
+                  <span className="[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-lg">
+                    —
+                  </span>
+                  <Input
+                    type="text"
+                    placeholder="max"
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(e.target.value)}
+                    className="h-10 bg-[#f5f5f5] border-[#e0e0e0] rounded-md [font-family:'Nunito',Helvetica] font-normal text-[#313131] text-sm"
+                  />
+                </div>
+              </CardContent>
+          </Card>
+
+            <Card className="bg-white rounded-[15px] border border-[#e0e0e0] shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+              <CardContent className = "p-4">
+                <h3 className="[font-family:'Nunito',Helvetica] font-bold text-black text-xl tracking-[0] leading-[normal] mb-4">
+                  Condition
+                </h3>
+                <div className="space-y-2">
+                  {conditions.map((condition) => (
+                    <label
+                      key={condition}
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedConditions.includes(condition)}
+                        onChange={() =>
+                          toggleFilter(
+                            condition,
+                            selectedConditions,
+                            setSelectedConditions
+                          )
+                        }
+                        className="w-4 h-4 rounded border-[#e0e0e0] text-[#fe2188] focus:ring-[#fe2188]"
+                      />
+                      <span className="[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-base tracking-[0] leading-[normal]">
+                        {condition}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+             <Card className="bg-white rounded-[15px] border border-[#e0e0e0] shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+              <CardContent className = "p-4">
               <h3 className="[font-family:'Nunito',Helvetica] font-bold text-black text-xl tracking-[0] leading-[normal] mb-4">
                 Delivery
               </h3>
@@ -234,12 +241,13 @@ export const SearchResultsPage = (): JSX.Element => {
                   </label>
                 ))}
               </div>
-            </div>
+            </CardContent>
+            </Card>
           </aside>
 
           <main>
-            <div className="flex items-center justify-between mb-6">
-              <h1 className="[font-family:'Nunito',Helvetica] font-bold text-black text-3xl tracking-[0] leading-[normal]">
+            <div className="flex items-center justify-between mb-4">
+              <h1 className="my-0 [font-family:'Nunito',Helvetica] font-bold text-black text-3xl tracking-[0] leading-[normal]">
                 Searched Results
               </h1>
               <div className="flex items-center gap-2">

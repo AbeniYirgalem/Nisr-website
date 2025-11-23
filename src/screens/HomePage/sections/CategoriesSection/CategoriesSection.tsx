@@ -1,4 +1,5 @@
-import { MoreHorizontalIcon } from "lucide-react";
+import { useState } from "react";
+import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { Card, CardContent } from "../../../../components/ui/card";
 import displayElectronics from "../../../../assets/images/display-electronics-image.png";
 import displayFashion from "../../../../assets/images/display-fashion-image-1.png";
@@ -20,7 +21,15 @@ const topImages = [
   { src: displayFurniture, alt: "Display furniture", label: "Furniture" },
 ];
 
-const categories = [
+type CategoryCard = {
+  src: string;
+  alt: string;
+  label: string;
+};
+
+type CategoryGridItem = CategoryCard | { label: string; isToggle: true };
+
+const baseCategories: CategoryCard[] = [
   { src: image35, alt: "Electronics", label: "Electronics" },
   { src: image58, alt: "Stationary", label: "Stationary" },
   { src: image59, alt: "Food and Drink", label: "Food and Drink" },
@@ -30,10 +39,28 @@ const categories = [
   { src: image63, alt: "Lost and Found", label: "Lost and Found" },
   { src: image65, alt: "Sport and Outdoor", label: "Sport and Outdoor" },
   { src: image64, alt: "Books and Art", label: "Books and Art" },
-  { src: undefined, alt: "More", label: "More", isMore: true },
+];
+
+const extraCategories: CategoryCard[] = [
+  { src: image64, alt: "Home Appliances", label: "Home Appliances" },
+  { src: image60, alt: "Kids & Babies", label: "Kids & Babies" },
+  { src: image58, alt: "Office Supplies", label: "Office Supplies" },
+  { src: image35, alt: "Gaming", label: "Gaming" },
+  { src: image63, alt: "Pets", label: "Pets" },
+  { src: image59, alt: "Events", label: "Events" },
 ];
 
 export const CategoriesSection = (): JSX.Element => {
+  const [showAllCategories, setShowAllCategories] = useState(false);
+  const displayedCategories = showAllCategories
+    ? [...baseCategories, ...extraCategories]
+    : baseCategories;
+  // Removed toggleLabel, only icon will be shown
+  const categoryCards: CategoryGridItem[] = [
+    ...displayedCategories,
+    { label: "", isToggle: true },
+  ];
+
   return (
     <section className="w-full bg-[#ffe4f087] py-10 px-6">
       <div className="max-w-[80%] mx-auto flex flex-col gap-6">
@@ -55,26 +82,35 @@ export const CategoriesSection = (): JSX.Element => {
           </h2>
 
           <div className="grid grid-cols-5 gap-6 max-w-[1000px] mx-auto">
-            {categories.map((category, index) => (
+            {categoryCards.map((category, index) => (
               <Card
                 key={index}
                 className="bg-white rounded-[10px] border-0 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
               >
                 <CardContent className="p-2 flex flex-col items-center justify-center h-[120px] gap-2">
-                  {category.isMore ? (
-                    <MoreHorizontalIcon className="w-[80px] h-[80px] text-gray-700" />
+                  {"isToggle" in category ? (
+                    <button
+                      type="button"
+                      className="w-full flex flex-col items-center justify-center text-[#151414]"
+                      onClick={() => setShowAllCategories((prev) => !prev)}
+                    >
+                      {showAllCategories ? (
+                        <ChevronUpIcon className="w-[60px] h-[60px] text-gray-700 mt-2" />
+                      ) : (
+                        <ChevronDownIcon className="w-[70px] h-[70px] text-gray-700 mt-3" />
+                      )}
+                    </button>
                   ) : (
                     <img
-                      /* Reduced height slightly to 80px to balance with text */
-                      className="w-full h-[80px] object-contain" 
+                      className="w-full h-[80px] object-contain"
                       alt={category.alt}
                       src={category.src}
                     />
                   )}
-                  
                   <div className="[font-family:'Nunito',Helvetica] font-semibold text-[#151414] text-sm tracking-[0] leading-[normal] text-center px-1 line-clamp-2">
                     {category.label}
                   </div>
+                  {/* No toggle label button below icon, icon only */}
                 </CardContent>
               </Card>
             ))}
