@@ -2,6 +2,8 @@
 
 ## Getting started
 
+you can check our webiste on the production link. but if you want to chck on you system, follow this steps:
+
 > **Prerequisites:**
 > The following steps require [NodeJS](https://nodejs.org/en/) to be installed on your system, so please
 > install it beforehand if you haven't already.
