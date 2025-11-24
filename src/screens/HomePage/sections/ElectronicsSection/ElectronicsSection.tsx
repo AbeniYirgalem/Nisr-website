@@ -88,7 +88,7 @@ export const ElectronicsSection = (): JSX.Element => {
           Trending ads
         </h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-4 md:gap-5 lg:gap-5 auto-rows-auto justify-items-center">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-4 md:gap-5 lg:gap-5 mb-14 sm:mb-0 auto-rows-auto justify-items-center">
           {productData.map((product) => (
             <Card
               key={product.id}

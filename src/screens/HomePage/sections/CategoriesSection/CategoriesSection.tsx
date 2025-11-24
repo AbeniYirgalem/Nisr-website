@@ -62,7 +62,7 @@ export const CategoriesSection = (): JSX.Element => {
   ];
 
   return (
-    <section className="w-full bg-[#ffe4f087] py-2 sm:py-10 px-0 sm:px-4">
+    <section className="w-full bg-[#ffe4f087] py-0 sm:py-10 px-0 sm:px-4">
       <div className="max-w-screen-xl mx-auto px-0 sm:px-4 flex flex-col gap-2 sm:gap-6">
         <div className="flex gap-4 overflow-x-auto lg:grid lg:grid-cols-3 lg:gap-6 scrollbar-hide px-2 sm:px-5">
           {topImages.map((image, index) => (
@@ -71,7 +71,7 @@ export const CategoriesSection = (): JSX.Element => {
               className="relative group cursor-pointer min-w-[260px] max-w-[320px] flex-shrink-0 lg:min-w-0 lg:max-w-none"
             >
               <img
-                className="w-full h-[250px] rounded-[20px] object-cover"
+                className="w-full h-[200px] sm:h-[250px] rounded-[20px] object-cover"
                 alt={image.alt}
                 src={image.src}
               />
@@ -79,17 +79,17 @@ export const CategoriesSection = (): JSX.Element => {
           ))}
         </div>
 
-        <div className="flex flex-col gap-2 sm:gap-5">
+        <div className="bg-[#FAFEFF] sm:bg-transparent flex flex-col gap-2 sm:gap-5">
           <h2 className="[font-family:'Nunito',Helvetica] font-bold text-black text-lg sm:text-[28px] tracking-[0] leading-[normal] px-2 ">
             Categories
           </h2>
 
           <div className="w-full overflow-x-auto pb-2 scrollbar-hide lg:max-w-4xl lg:mx-auto">
-            <div className="flex gap-1.5 lg:grid lg:grid-cols-5 lg:gap-6 px-2">
+            <div className="flex lg:grid lg:grid-cols-5 gap-0 sm:gap-2 lg:gap-6 px-2">
               {categoryCards.map((category, index) => (
                 <Card
                   key={index}
-                  className="bg-white rounded-[8px] border-0 shadow-sm hover:shadow-md transition-shadow cursor-pointer min-w-[90px] max-w-[110px] flex-shrink-0 lg:min-w-0 lg:max-w-[160px]"
+                  className="bg-[#FAFEFF] rounded-none sm:rounded-[8px] border-0 shadow-none sm:shadow-sm hover:shadow-md transition-shadow cursor-pointer min-w-[90px] max-w-[110px] flex-shrink-0 lg:min-w-0 lg:max-w-[160px]"
                 >
                   <CardContent className="p-1 flex flex-col items-center justify-center h-[90px] gap-1 sm:p-2 sm:h-[100px] md:h-[120px] sm:gap-2">
                     {"isToggle" in category ? (
