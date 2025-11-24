@@ -64,7 +64,7 @@ export const CategoriesSection = (): JSX.Element => {
   return (
     <section className="w-full bg-[#ffe4f087] py-0 sm:py-10 px-0 sm:px-4">
       <div className="max-w-screen-xl mx-auto px-0 sm:px-4 flex flex-col gap-2 sm:gap-6">
-        <div className="flex gap-4 overflow-x-auto lg:grid lg:grid-cols-3 lg:gap-6 scrollbar-hide px-2 sm:px-5">
+        <div className="flex gap-4 overflow-x-auto lg:grid lg:grid-cols-3 lg:gap-6 scrollbar-hide px-2 sm:px-5 pt-4 sm:pt-0">
           {topImages.map((image, index) => (
             <div
               key={index}

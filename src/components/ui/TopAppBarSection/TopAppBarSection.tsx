@@ -90,13 +90,18 @@ export const TopAppBarSection = ({ onShowDownloadPopup }: TopAppBarSectionProps)
 	const renderMobileBottomNav = () => (
 		<div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200">
 			<div className="max-w-md mx-auto px-4 py-2 flex items-center justify-between">
-				<button
-					className="flex flex-col items-center text-xs font-semibold text-[#fe2188]"
-					onClick={() => navigate("/")}
-				>
-					<HomeIcon className="w-6 h-6 text-[#fe2188]" />
-					<span>Home</span>
-				</button>
+				   <button
+					   className="flex flex-col items-center text-xs font-semibold text-[#fe2188]"
+					   onClick={() => navigate("/")}
+				   >
+									 {/* Custom Home Icon matching provided image */}
+									 <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										 <path d="M4 11.5V20c0 .55.45 1 1 1h14c.55 0 1-.45 1-1v-8.5c0-.27-.11-.52-.29-.71l-7-7a1 1 0 0 0-1.42 0l-7 7A1 1 0 0 0 4 11.5Z" fill="#fe2188"/>
+										 <rect x="9" y="13" width="6" height="6" rx="1.5" fill="#fff"/>
+										 <rect x="10.5" y="15" width="3" height="4" rx="1" fill="#fe2188"/>
+									 </svg>
+					   <span>Home</span>
+				   </button>
 				<button
 					className="flex flex-col items-center text-xs font-semibold text-[#313131]"
 					onClick={onShowDownloadPopup}
@@ -129,7 +134,7 @@ export const TopAppBarSection = ({ onShowDownloadPopup }: TopAppBarSectionProps)
 	);
 
 	return (
-		<header className="w-full bg-white pb-6 lg:pb-5 pt-1 px-4 sm:px-6 lg:px-8 relative">
+		<header className="w-full bg-white pb-2 sm:pb-6 lg:pb-5 pt-1 px-4 sm:px-6 lg:px-8 relative">
 			{/* Mobile layout */}
 			<div className="flex flex-col gap-0 lg:hidden">
 				<div className="flex items-center justify-between">

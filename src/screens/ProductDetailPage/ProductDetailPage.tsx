@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { GetAppSection } from "../../components/ui/GetAppSection";
@@ -46,8 +46,54 @@ const discoverMoreProducts = [
 
 export const ProductDetailPage = (): JSX.Element => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [showDownloadPopup, setShowDownloadPopup] = useState(false);
   const [showWaitlistPopup, setShowWaitlistPopup] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const [shouldShowDescriptionToggle, setShouldShowDescriptionToggle] = useState(false);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const descriptionRef = useRef<HTMLParagraphElement>(null);
+  const descriptionText =
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [id]);
+
+  useEffect(() => {
+    const handleViewportCheck = () => {
+      const isMobile = window.innerWidth < 640;
+
+      setIsMobileViewport((previousValue) => {
+        if (!previousValue && isMobile) {
+          setIsDescriptionExpanded(false);
+        }
+        if (!isMobile) {
+          setIsDescriptionExpanded(true);
+        }
+        return isMobile;
+      });
+
+      if (!descriptionRef.current) {
+        setShouldShowDescriptionToggle(false);
+        return;
+      }
+
+      if (isMobile) {
+        const lineHeight = parseFloat(
+          getComputedStyle(descriptionRef.current).lineHeight || "24"
+        );
+        const lines = descriptionRef.current.scrollHeight / lineHeight;
+        setShouldShowDescriptionToggle(lines > 3);
+      } else {
+        setShouldShowDescriptionToggle(false);
+      }
+    };
+
+    handleViewportCheck();
+    window.addEventListener("resize", handleViewportCheck);
+    return () => window.removeEventListener("resize", handleViewportCheck);
+  }, []);
 
   return (
     <div className="bg-[#F0F0F0] min-h-screen">
@@ -69,23 +115,26 @@ export const ProductDetailPage = (): JSX.Element => {
       />
       <WaitlistPopup isOpen={showWaitlistPopup} onClose={() => setShowWaitlistPopup(false)} />
 
-      <div className="max-w-[1320px] mx-auto px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8">
-          <div className="rounded-[20px] overflow-hidden bg-gray-100">
+      <div className="max-w-[1320px] mx-auto px-0 sm:px-8 py-0 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-0 sm:gap-8">
+          <div className="rounded-none sm:rounded-[20px] overflow-hidden bg-gray-100">
             <img
               src={img19_2}
               alt="Product"
-              className="w-full h-[600px] object-cover"
+              className="w-full h-64 sm:h-[600px] object-cover"
             />
           </div>
 
-          <div className="flex flex-col gap-6">
-            <Card className="bg-white border-0 shadow-sm rounded-[15px]">
-              <CardContent className="p-6">
-                <h1 className="[font-family:'Nunito',Helvetica] font-extrabold text-[#fc3850] text-4xl tracking-[0] leading-none">
+          <div className="flex flex-col gap-2 sm:gap-6">
+            <Card className="bg-white border-0 shadow-sm rounded-none sm:rounded-[15px]">
+              <CardContent className="p-2 sm:p-6">
+                <div className="[font-family:'Nunito',Helvetica] font-normal text-[#5A5A5A] text-sm tracking-[0] leading-[normal] text-right pr-2">
+                  03/12/2025
+                </div>
+                <h1 className="[font-family:'Nunito',Helvetica] font-extrabold text-[#fc3850] text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0] leading-none">
                   ETB 1000
                 </h1>
-                <div className="[font-family:'Nunito',Helvetica] font-normal text-[#120b0b] text-sm tracking-[0] leading-[normal] mb-6">
+                <div className="[font-family:'Nunito',Helvetica] font-normal text-[#5A5A5A] text-sm tracking-[0] leading-[normal] mb-6">
                   Fixed price
                 </div>
 
@@ -180,8 +229,8 @@ export const ProductDetailPage = (): JSX.Element => {
               </CardContent>
             </Card>
 
-            <Card className="bg-white border-0 shadow-sm rounded-[15px]">
-              <CardContent className="p-6">
+            <Card className="bg-white border-0 shadow-sm rounded-none sm:rounded-[15px]">
+              <CardContent className="p-4 sm:p-6">
                 <div className="flex items-start gap-4">
                   <div className="w-[60px] h-[60px] bg-[#fe2188] rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="[font-family:'Nunito',Helvetica] font-bold text-white text-2xl">
@@ -227,22 +276,36 @@ export const ProductDetailPage = (): JSX.Element => {
             </Card>
           </div>
 
-          <Card className="bg-white border-0 shadow-sm rounded-[15px] mt-2">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="[font-family:'Nunito',Helvetica] font-bold text-black text-2xl tracking-[0] leading-[normal]">
-                Description
-              </h2>
-              <span className="[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-sm tracking-[0] leading-[normal]">
-                27/10/2025
-              </span>
-            </div>
-            <p className="[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-base tracking-[0] leading-6">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              
-            </p>
-          </CardContent>
-        </Card>
+          <Card className="bg-white border-0 shadow-sm rounded-none sm:rounded-[15px] mt-2">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-0 sm:mb-4">
+                <h2 className="[font-family:'Nunito',Helvetica] font-bold text-black text-2xl tracking-[0] leading-[normal]">
+                  Description
+                </h2>
+                
+              </div>
+              <div>
+                <p
+                  ref={descriptionRef}
+                  className={`[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-base tracking-[0] leading-6 transition-all duration-200 ${
+                    isMobileViewport && !isDescriptionExpanded
+                      ? "max-h-[4.5em] overflow-hidden"
+                      : ""
+                  }`}
+                >
+                  {descriptionText}
+                </p>
+                {isMobileViewport && shouldShowDescriptionToggle && (
+                  <button
+                    className="mt-2 text-[#fe2188] font-semibold text-sm focus:outline-none"
+                    onClick={() => setIsDescriptionExpanded((prev) => !prev)}
+                  >
+                    {isDescriptionExpanded ? "Show less" : "Show more"}
+                  </button>
+                )}
+              </div>
+            </CardContent>
+          </Card>
 
         </div>
 
