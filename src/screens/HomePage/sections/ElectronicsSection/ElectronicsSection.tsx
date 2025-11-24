@@ -84,7 +84,7 @@ export const ElectronicsSection = (): JSX.Element => {
   return (
     <section className="w-full bg-[#efefef] py-4 px-2 sm:py-6 sm:px-4 md:py-9 md:px-6">
       <div className="max-w-[1262px] mx-auto">
-        <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[32px] tracking-[0.40px] leading-4 mb-12">
+        <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[24px] sm:text-[28px] md:text-[32px] tracking-[0.40px] leading-4 mb-4 sm:mb-8 md:mb-10 px-1 sm:px-0">
           Trending ads
         </h2>
 
