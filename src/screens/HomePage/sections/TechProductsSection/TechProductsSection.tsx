@@ -39,17 +39,17 @@ export const TechProductsSection = (): JSX.Element => {
   const navigate = useNavigate();
 
   return (
-    <section className="w-full px-4 py-6">
-      <div className="flex flex-col gap-6 lg:flex-row max-w-[1320px] mx-auto">
-        <Card className="bg-[#ffc2d3] border-0 rounded-[10px] w-full lg:w-1/2">
-          <CardContent className="p-5">
-            <div className="flex items-center gap-2 mb-2">
-              <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[28px] tracking-[0.40px] leading-none">
+    <section className="w-full px-0 sm:px-4 py-0 sm:py-6">
+      <div className="flex flex-col gap-0 sm:gap-3 md:gap-5 lg:flex-row max-w-[1320px] mx-auto">
+        <Card className="bg-[#ffc2d3] border-0 rounded-none sm:rounded-[10px] w-full lg:w-1/2">
+          <CardContent className="px-0 sm:px-5 py-2 sm:py-5 ">
+            <div className="flex items-center gap-0 sm:gap-2 mb-2">
+              <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[22px] sm:text-[26px] md:text-[30px] tracking-[0.40px] leading-none px-2">
                 Tech Products
               </h2>
-              <ChevronRightIcon className="w-5 h-5 text-black mt-1" />
+              <ChevronRightIcon className="w-5 h-5 text-black mt-0 sm:mt-1" />
             </div>
-            <div className="flex gap-4 overflow-x-auto scrollbar-hide pt-8 lg:grid lg:grid-cols-3 lg:gap-4 lg:gap-y-10">
+            <div className="flex gap-x-4 sm:gap-4 overflow-x-auto scrollbar-hide px-4 sm:px-0 pt-0 sm:pt-4 lg:grid lg:grid-cols-3 lg:gap-4 lg:gap-y-10">
               {techProducts.map((product) => (
                 <Card
                   key={product.id}
@@ -74,16 +74,16 @@ export const TechProductsSection = (): JSX.Element => {
           </CardContent>
         </Card>
 
-        <div className="flex flex-col gap-6 w-full lg:w-1/2">
-          <Card className="bg-[#abcfff] border-0 rounded-[10px]">
-            <CardContent className="p-5">
-              <div className="flex items-center gap-2 mb-4">
-                <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[26px] tracking-[0.40px] leading-none">
+        <div className="flex flex-col gap-0 sm:gap-6 w-full lg:w-1/2">
+          <Card className="bg-[#abcfff] border-0 rounded-none sm:rounded-[10px]">
+            <CardContent className="px-0 sm:px-5 py-2 sm:py-5">
+              <div className="flex items-center gap-0 sm:gap-2 mb-4">
+                <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[22px] sm:text-[26px] md:text-[30px] tracking-[0.40px] leading-none px-2">
                   Fashion
                 </h2>
-                <ChevronRightIcon className="w-5 h-5 text-black mt-1" />
+                <ChevronRightIcon className="w-5 h-5 text-black mt-0 sm:mt-1" />
               </div>
-              <div className="flex gap-4 overflow-x-auto scrollbar-hide lg:grid lg:grid-cols-3 lg:gap-4">
+              <div className="flex gap-4 overflow-x-auto scrollbar-hide lg:grid lg:grid-cols-3 lg:gap-4 px-4 sm:px-0">
                 {fashionProducts.map((product) => (
                   <Card
                   key={product.id}
@@ -108,15 +108,15 @@ export const TechProductsSection = (): JSX.Element => {
             </CardContent>
           </Card>
 
-          <Card className="bg-[#b7ffcf] border-0 rounded-[10px]">
-            <CardContent className="p-5">
-              <div className="flex items-center gap-2 mb-4">
-                <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[26px] tracking-[0.40px] leading-none">
-                  Stationary
+          <Card className="bg-[#b7ffcf] border-0 rounded-none sm:rounded-[10px]">
+            <CardContent className="px-0 sm:px-5 py-2 sm:py-5">
+              <div className="flex items-center gap-0 sm:gap-2 mb-4">
+                <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[22px] sm:text-[26px] md:text-[30px] tracking-[0.40px] leading-none px-2">
+                  Stationery
                 </h2>
-                <ChevronRightIcon className="w-5 h-5 text-black mt-1" />
+                <ChevronRightIcon className="w-5 h-5 text-black mt-0 sm:mt-1" />
               </div>
-              <div className="flex gap-4 overflow-x-auto scrollbar-hide lg:grid lg:grid-cols-3 lg:gap-4">
+              <div className="flex gap-4 overflow-x-auto scrollbar-hide lg:grid lg:grid-cols-3 lg:gap-4 px-4 sm:px-0">
                 {stationaryProducts.map((product) => (
                   <Card
                   key={product.id}
