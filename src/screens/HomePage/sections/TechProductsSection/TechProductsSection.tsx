@@ -40,8 +40,8 @@ export const TechProductsSection = (): JSX.Element => {
 
   return (
     <section className="w-full px-4 py-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[1320px] mx-auto">
-        <Card className="bg-[#ffc2d3] border-0 rounded-[10px]">
+      <div className="flex flex-col gap-6 lg:flex-row max-w-[1320px] mx-auto">
+        <Card className="bg-[#ffc2d3] border-0 rounded-[10px] w-full lg:w-1/2">
           <CardContent className="p-5">
             <div className="flex items-center gap-2 mb-2">
               <h2 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[28px] tracking-[0.40px] leading-none">
@@ -49,11 +49,11 @@ export const TechProductsSection = (): JSX.Element => {
               </h2>
               <ChevronRightIcon className="w-5 h-5 text-black mt-1" />
             </div>
-            <div className="grid grid-cols-3 gap-4 gap-y-10 pt-8">
+            <div className="flex gap-4 overflow-x-auto scrollbar-hide pt-8 lg:grid lg:grid-cols-3 lg:gap-4 lg:gap-y-10">
               {techProducts.map((product) => (
                 <Card
                   key={product.id}
-                  className="bg-white border-0 overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+                  className="bg-white border-0 overflow-hidden cursor-pointer hover:shadow-md transition-shadow min-w-[180px] flex-shrink-0 lg:min-w-0"
                   onClick={() => navigate(`/product/${product.id}`)}
                 >
                   <CardContent className="p-0">
@@ -74,7 +74,7 @@ export const TechProductsSection = (): JSX.Element => {
           </CardContent>
         </Card>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 w-full lg:w-1/2">
           <Card className="bg-[#abcfff] border-0 rounded-[10px]">
             <CardContent className="p-5">
               <div className="flex items-center gap-2 mb-4">
@@ -83,11 +83,11 @@ export const TechProductsSection = (): JSX.Element => {
                 </h2>
                 <ChevronRightIcon className="w-5 h-5 text-black mt-1" />
               </div>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="flex gap-4 overflow-x-auto scrollbar-hide lg:grid lg:grid-cols-3 lg:gap-4">
                 {fashionProducts.map((product) => (
                   <Card
                   key={product.id}
-                  className="bg-white border-0 overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+                  className="bg-white border-0 overflow-hidden cursor-pointer hover:shadow-md transition-shadow min-w-[180px] flex-shrink-0 lg:min-w-0"
                   onClick={() => navigate(`/product/${product.id}`)}
                 >
                   <CardContent className="p-0">
@@ -116,11 +116,11 @@ export const TechProductsSection = (): JSX.Element => {
                 </h2>
                 <ChevronRightIcon className="w-5 h-5 text-black mt-1" />
               </div>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="flex gap-4 overflow-x-auto scrollbar-hide lg:grid lg:grid-cols-3 lg:gap-4">
                 {stationaryProducts.map((product) => (
                   <Card
                   key={product.id}
-                  className="bg-white border-0 overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+                  className="bg-white border-0 overflow-hidden cursor-pointer hover:shadow-md transition-shadow min-w-[180px] flex-shrink-0 lg:min-w-0"
                   onClick={() => navigate(`/product/${product.id}`)}
                 >
                   <CardContent className="p-0">
