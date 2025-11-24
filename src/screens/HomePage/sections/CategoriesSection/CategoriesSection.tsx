@@ -62,9 +62,9 @@ export const CategoriesSection = (): JSX.Element => {
   ];
 
   return (
-    <section className="w-full bg-[#ffe4f087] py-10 px-4">
-      <div className="max-w-screen-xl mx-auto px-4 flex flex-col gap-6">
-        <div className="flex gap-4 overflow-x-auto lg:grid lg:grid-cols-3 lg:gap-6 scrollbar-hide">
+    <section className="w-full bg-[#ffe4f087] py-2 sm:py-10 px-0 sm:px-4">
+      <div className="max-w-screen-xl mx-auto px-0 sm:px-4 flex flex-col gap-2 sm:gap-6">
+        <div className="flex gap-4 overflow-x-auto lg:grid lg:grid-cols-3 lg:gap-6 scrollbar-hide px-2 sm:px-5">
           {topImages.map((image, index) => (
             <div
               key={index}
@@ -79,13 +79,13 @@ export const CategoriesSection = (): JSX.Element => {
           ))}
         </div>
 
-        <div className="flex flex-col gap-5">
-          <h2 className="[font-family:'Nunito',Helvetica] font-bold text-black text-lg sm:text-[28px] tracking-[0] leading-[normal] px-2">
+        <div className="flex flex-col gap-2 sm:gap-5">
+          <h2 className="[font-family:'Nunito',Helvetica] font-bold text-black text-lg sm:text-[28px] tracking-[0] leading-[normal] px-2 ">
             Categories
           </h2>
 
           <div className="w-full overflow-x-auto pb-2 scrollbar-hide lg:max-w-4xl lg:mx-auto">
-            <div className="flex gap-3 lg:grid lg:grid-cols-5 lg:gap-6">
+            <div className="flex gap-1.5 lg:grid lg:grid-cols-5 lg:gap-6 px-2">
               {categoryCards.map((category, index) => (
                 <Card
                   key={index}
