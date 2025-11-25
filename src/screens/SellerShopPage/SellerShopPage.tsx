@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Card, CardContent } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import { GetAppSection } from "../../components/ui/GetAppSection";
@@ -98,6 +98,10 @@ export const SellerShopPage = (): JSX.Element => {
   const navigate = useNavigate();
   const [showDownloadPopup, setShowDownloadPopup] = useState(false);
   const [showWaitlistPopup, setShowWaitlistPopup] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  });
 
   return (
     <div className="bg-[#f0f0f0] min-h-screen">
