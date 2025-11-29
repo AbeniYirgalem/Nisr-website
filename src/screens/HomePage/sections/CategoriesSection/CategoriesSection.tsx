@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { Card, CardContent } from "../../../../components/ui/card";
 import displayElectronics from "../../../../assets/images/display-electronics-image.png";
@@ -52,6 +53,7 @@ const extraCategories: CategoryCard[] = [
 
 export const CategoriesSection = (): JSX.Element => {
   const [showAllCategories, setShowAllCategories] = useState(false);
+  const navigate = useNavigate();
   const displayedCategories = showAllCategories
     ? [...baseCategories, ...extraCategories]
     : baseCategories;
@@ -90,13 +92,21 @@ export const CategoriesSection = (): JSX.Element => {
                 <Card
                   key={index}
                   className="bg-[#FAFEFF] rounded-none sm:rounded-[8px] border-0 shadow-none sm:shadow-sm hover:shadow-md transition-shadow cursor-pointer min-w-[90px] max-w-[110px] flex-shrink-0 lg:min-w-0 lg:max-w-[160px]"
+                  onClick={() => {
+                    if (!("isToggle" in category)) {
+                      navigate("/search");
+                    }
+                  }}
                 >
                   <CardContent className="p-1 flex flex-col items-center justify-center h-[90px] gap-1 sm:p-2 sm:h-[100px] md:h-[120px] sm:gap-2">
                     {"isToggle" in category ? (
                       <button
                         type="button"
                         className="w-full flex flex-col items-center justify-center text-[#151414]"
-                        onClick={() => setShowAllCategories((prev) => !prev)}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          setShowAllCategories((prev) => !prev);
+                        }}
                       >
                         {showAllCategories ? (
                           <ChevronUpIcon className="w-8 h-8 text-gray-700 mt-1 sm:w-[60px] sm:h-[60px] sm:mt-2" />

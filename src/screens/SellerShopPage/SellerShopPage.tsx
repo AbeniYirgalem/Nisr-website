@@ -197,12 +197,12 @@ export const SellerShopPage = (): JSX.Element => {
 
           <main>
             <div className="mb-2 sm:mb-4">
-              <h1 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[24px] sm:text-[28px] md:text-[32px] tracking-[0.40px] leading-4 mb-4 sm:mb-8 md:mb-10 px-1 sm:px-0">
+              <h1 className="[font-family:'Nunito',Helvetica] font-extrabold text-black text-[22px] sm:text-[28px] md:text-[32px] tracking-[0.40px] leading-4 mb-4 sm:mb-8 md:mb-10 px-1 sm:px-0">
                 All items
               </h1>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-3 px-2 sm:px-0">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-3 mb-14 lg:mb-0 px-2 sm:px-0">
               {shopProducts.map((product) => (
                  <Card
                   key={product.id}

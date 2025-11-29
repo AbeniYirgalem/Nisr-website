@@ -97,14 +97,14 @@ export const ProductDetailPage = (): JSX.Element => {
                 <div className="[font-family:'Nunito',Helvetica] font-normal text-[#5A5A5A] text-sm tracking-[0] leading-[normal] text-right pr-2">
                   03/12/2025
                 </div>
-                <h1 className="[font-family:'Nunito',Helvetica] font-extrabold text-[#fc3850] text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0] leading-none">
+                <h1 className="[font-family:'Nunito',Helvetica] font-extrabold text-[#fc3850] text-2xl sm:text-3xl md:text-4xl tracking-[0] leading-none">
                   ETB 1000
                 </h1>
-                <div className="[font-family:'Nunito',Helvetica] font-normal text-[#5A5A5A] text-sm tracking-[0] leading-[normal] mb-6">
+                <div className="[font-family:'Nunito',Helvetica] font-normal text-[#5A5A5A] text-sm tracking-[0] leading-[normal] mb-4 sm:mb-6">
                   Fixed price
                 </div>
 
-                <p className="[font-family:'Nunito',Helvetica] font-bold text-black text-xl tracking-[0] leading-7 mb-4">
+                <p className="[font-family:'Nunito',Helvetica] font-bold text-black text-[20px] sm:text-xl md:text-2xl tracking-[0] leading-7 mb-4">
                   Brand new Lamborghini 2025 made in USA high speed and
                   durability
                 </p>
@@ -204,7 +204,7 @@ export const ProductDetailPage = (): JSX.Element => {
                     </span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="[font-family:'Nunito',Helvetica] font-bold text-black text-lg tracking-[0] leading-[normal] mb-1">
+                    <h3 className="[font-family:'Nunito',Helvetica] font-bold text-black text-md sm:text-lg tracking-[0] leading-[normal] mb-1">
                       Abebe Kebede Seller
                     </h3>
                     <p className="[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-sm tracking-[0] leading-[normal]">
@@ -245,7 +245,7 @@ export const ProductDetailPage = (): JSX.Element => {
           <Card className="bg-white border-0 shadow-sm rounded-none sm:rounded-[15px] mt-2">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-0 sm:mb-4">
-                <h2 className="[font-family:'Nunito',Helvetica] font-bold text-black text-2xl tracking-[0] leading-[normal]">
+                <h2 className="[font-family:'Nunito',Helvetica] font-bold text-black text-xl sm:text-2xl tracking-[0] leading-[normal]">
                   Description
                 </h2>
                 
@@ -253,9 +253,9 @@ export const ProductDetailPage = (): JSX.Element => {
               <div>
                 <p
                   ref={descriptionRef}
-                  className={`[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-base tracking-[0] leading-6 transition-all duration-200 ${
+                  className={`[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-sm sm:text-base tracking-[0] leading-6 transition-all duration-200 ${
                     isMobileViewport && !isDescriptionExpanded
-                      ? "max-h-[4.5em] overflow-hidden"
+                      ? "max-h-[4.6em] overflow-hidden"
                       : ""
                   }`}
                 >
