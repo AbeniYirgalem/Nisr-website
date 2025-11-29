@@ -1,91 +1,64 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "../card";
-import img19_2 from "../../../assets/images/image-19-2.png";
-import img23_1 from "../../../assets/images/image-23-1.png";
-import img21_2 from "../../../assets/images/image-21-2.png";
-import img24_1 from "../../../assets/images/image-24-1.png";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../firebase";
+import { ChevronLeft, ChevronRight, Loader } from "lucide-react";
+type ProductData = {
+  desc: string;
+  id: string;
+  img: string;
+  name: string;
+  price: number;
+};
 
-const productData = [
-  {
-    id: 1,
-    image: img19_2,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa • Brand New",
-  },
-  {
-    id: 2,
-    image: img23_1,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa • Brand New",
-  },
-  {
-    id: 3,
-    image: img21_2,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa • Brand New",
-  },
-  {
-    id: 4,
-    image: img24_1,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa • Brand New",
-  },
-  {
-    id: 5,
-    image: img21_2,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa • Brand New",
-  },
-  {
-    id: 6,
-    image: img21_2,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa • Brand New",
-  },
-  {
-    id: 7,
-    image: img24_1,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa • Brand New",
-  },
-  {
-    id: 8,
-    image: img19_2,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa • Brand New",
-  },
-  {
-    id: 9,
-    image: img23_1,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa • Brand New",
-  },
-  {
-    id: 10,
-    image: img19_2,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa • Brand New",
-  },
-];
-
+type pageData = {
+  list: ProductData[];
+  nextDocumentId: string | null;
+};
 export interface RecommendedProductsSectionProps {
   title?: ReactNode;
 }
 
-export const RecommendedProductsSection = ({ title }: RecommendedProductsSectionProps): JSX.Element => {
+export const RecommendedProductsSection = ({
+  title,
+}: RecommendedProductsSectionProps): JSX.Element => {
   const navigate = useNavigate();
   const heading = title ?? "Trending";
+  const [products, setProducts] = useState<pageData | null>(null);
+  const [page, setPage] = useState<number>(1);
+  const loaderRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!loaderRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && products?.nextDocumentId) {
+          setPage((prev) => prev + 1);
+        }
+      },
+      { threshold: 1 }
+    );
+
+    observer.observe(loaderRef.current);
+    return () => observer.disconnect();
+  }, [products?.nextDocumentId]);
+
+  const fetchPageProducts = async () => {
+    try {
+      const productsRef = doc(db, "recommended_product_list", `page_${page}`);
+      const productsSnapshot = await getDoc(productsRef);
+      if (productsSnapshot.exists()) {
+        setProducts(prev=>prev?{...prev,...productsSnapshot.data()}:productsSnapshot.data() as pageData);
+      }
+    } catch (error) {
+      console.error("Failed to fetch products:", error);
+    }
+  };
+  useEffect(() => {
+    fetchPageProducts();
+  }, [page]);
 
   return (
     <section className="w-full bg-[#efefef] py-4 px-2 sm:py-6 sm:px-4 md:py-9 md:px-6">
@@ -95,7 +68,7 @@ export const RecommendedProductsSection = ({ title }: RecommendedProductsSection
         </h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-4 md:gap-5 lg:gap-5 mb-14 lg:mb-0 auto-rows-auto justify-items-center">
-          {productData.map((product) => (
+          {products?.list.map((product) => (
             <Card
               key={product.id}
               className="bg-[#fffdfd] rounded-[15px] border-0 shadow-none overflow-hidden cursor-pointer hover:shadow-md transition-shadow w-full max-w-[260px]"
@@ -106,25 +79,66 @@ export const RecommendedProductsSection = ({ title }: RecommendedProductsSection
                   <img
                     className="w-full h-full object-cover"
                     alt="Product"
-                    src={product.image}
+                    src={product.img}
                   />
                 </div>
                 <div className="p-3">
                   <p className="[font-family:'Nunito',Helvetica] font-medium text-[#313131] text-xs tracking-[0] leading-4 mb-2 line-clamp-2">
-                    {product.description}
+                    {product.desc}
                   </p>
                   <p className="[font-family:'Nunito',Helvetica] font-extrabold text-[#120b0b] text-base tracking-[0] leading-4 mb-2">
                     {product.price}
                   </p>
                   <p className="[font-family:'Nunito',Helvetica] font-medium text-[#313131] text-[11px] tracking-[0] leading-4">
-                    {product.location}
+                    {product.desc}
                   </p>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
+        {/* make a next prev buttons */}
+        <div className="flex items-center gap-4 pt-6">
+          {/* Previous */}
+          <button
+            className="
+      inline-flex items-center gap-2
+      bg-[#fa6bad]/80 hover:bg-[#fa6bad]
+      text-white font-medium
+      py-2.5 px-5 rounded-xl
+      transition-all duration-200
+      disabled:bg-[#fa6bad]/40 disabled:cursor-not-allowed
+      hover:shadow-md active:scale-95
+    "
+            onClick={() => setPage(page - 1)}
+            disabled={page === 1}
+          >
+            <ChevronLeft className="w-4 h-4" />
+            <span>Previous</span>
+          </button>
+
+          {/* Next */}
+          <button
+            className="
+      inline-flex items-center gap-2
+      bg-[#fa6bad]/80 hover:bg-[#fa6bad]
+      text-white font-medium
+      py-2.5 px-5 rounded-xl
+      transition-all duration-200
+      disabled:bg-[#fa6bad]/40 disabled:cursor-not-allowed
+      hover:shadow-md active:scale-95
+    "
+            onClick={() => setPage(page + 1)}
+            disabled={!products?.nextDocumentId}
+          >
+            <span>Next</span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
       </div>
+      {/* <div className="w-full h-20" ref={loaderRef}>
+          <Loader className="size-5" />
+      </div> */}
     </section>
   );
 };

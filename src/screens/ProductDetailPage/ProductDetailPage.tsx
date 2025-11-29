@@ -8,58 +8,131 @@ import { TopAppBarSection } from "../../components/ui/TopAppBarSection";
 import AppDownloadPopup from "../../components/ui/AppDownloadPopup";
 import WaitlistPopup from "../../components/ui/WaitlistPopup";
 import img19_2 from "../../assets/images/image-19-2.png";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { LoadingSkeleton } from "../../components/ui/RecommendedProductsSection/sections/loadingSkeleton";
+import { Details } from "../../components/ui/RecommendedProductsSection/sections/details";
 
+type ProductData = {
+  categoryId: string;
+  chats: number;
+  condition: string;
+  desc: string;
+  freeDelivery: boolean;
+  imgList: string[];
+  location: string;
+  name: string;
+  negotiable: boolean;
+  phoneNum: string;
+  phoneViews: number;
+  postedDate: { toDate(): Date } | Date;
+  price: number;
+  sellerId: string;
+  score: number;
+  shopImage?: string;
+  shopName: string;
+  signUpDate: { toDate(): Date } | Date;
+  views: number;
+};
 
 export const ProductDetailPage = (): JSX.Element => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const [showDownloadPopup, setShowDownloadPopup] = useState(false);
   const [showWaitlistPopup, setShowWaitlistPopup] = useState(false);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [shouldShowDescriptionToggle, setShouldShowDescriptionToggle] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const [productDetail, setProductDetail] = useState<ProductData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
   const descriptionRef = useRef<HTMLParagraphElement>(null);
-  const descriptionText =
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+
+  const productImage = productDetail?.imgList?.[0] || img19_2;
+  const descriptionText = productDetail?.desc || "No description available.";
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+
+    const loadProduct = async () => {
+      if (!id) {
+        setError(true);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const docRef = doc(db, "product_details", id);
+        const snapshot = await getDoc(docRef);
+
+        if (snapshot.exists()) {
+          setProductDetail(snapshot.data() as ProductData);
+        } else {
+          setError(true);
+        }
+      } catch (err) {
+        console.error(err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProduct();
   }, [id]);
 
+  // Mobile description "Show more" logic
   useEffect(() => {
-    const handleViewportCheck = () => {
-      const isMobile = window.innerWidth < 640;
-
-      setIsMobileViewport((previousValue) => {
-        if (!previousValue && isMobile) {
-          setIsDescriptionExpanded(false);
-        }
-        if (!isMobile) {
-          setIsDescriptionExpanded(true);
-        }
-        return isMobile;
-      });
+    const checkViewport = () => {
+      const mobile = window.innerWidth < 640;
+      setIsMobileViewport(mobile);
 
       if (!descriptionRef.current) {
         setShouldShowDescriptionToggle(false);
         return;
       }
 
-      if (isMobile) {
-        const lineHeight = parseFloat(
-          getComputedStyle(descriptionRef.current).lineHeight || "24"
-        );
-        const lines = descriptionRef.current.scrollHeight / lineHeight;
-        setShouldShowDescriptionToggle(lines > 3);
-      } else {
-        setShouldShowDescriptionToggle(false);
-      }
+      const lineHeight = parseFloat(getComputedStyle(descriptionRef.current).lineHeight || "24");
+      const lines = descriptionRef.current.scrollHeight / lineHeight;
+      setShouldShowDescriptionToggle(mobile && lines > 3);
+
+      if (!mobile) setIsDescriptionExpanded(true);
     };
 
-    handleViewportCheck();
-    window.addEventListener("resize", handleViewportCheck);
-    return () => window.removeEventListener("resize", handleViewportCheck);
-  }, []);
+    checkViewport();
+    window.addEventListener("resize", checkViewport);
+    return () => window.removeEventListener("resize", checkViewport);
+  }, [productDetail?.desc]);
+
+  // Custom Skeleton using only div + animate-pulse
+
+
+  if (loading) {
+    return (
+      <div className="bg-[#F0F0F0] min-h-screen">
+        <div className="bg-white overflow-hidden w-full flex flex-col">
+          <GetAppSection onDownloadClick={() => {}} onWaitlistClick={() => {}} />
+          <TopAppBarSection onShowDownloadPopup={() => {}} />
+        </div>
+        <LoadingSkeleton />
+      </div>
+    );
+  }
+
+  if (error || !productDetail) {
+    return (
+      <div className="min-h-screen bg-[#F0F0F0] flex items-center justify-center px-4">
+        <div className="text-center">
+          <p className="text-2xl font-bold text-gray-800 mb-4">Product not found</p>
+          <Button onClick={() => navigate(-1)} className="bg-[#fe2188] hover:bg-[#fe2188]/90">
+            Go Back
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#F0F0F0] min-h-screen">
@@ -83,200 +156,46 @@ export const ProductDetailPage = (): JSX.Element => {
 
       <div className="max-w-[1320px] mx-auto px-0 sm:px-8 py-0 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-0 sm:gap-8">
+          {/* Image */}
           <div className="rounded-none sm:rounded-[20px] overflow-hidden bg-gray-100">
             <img
-              src={img19_2}
-              alt="Product"
+              src={productImage}
+              alt={productDetail.name}
               className="w-full h-64 sm:h-[600px] object-cover"
             />
           </div>
 
-          <div className="flex flex-col gap-2 sm:gap-6">
-            <Card className="bg-white border-0 shadow-sm rounded-none sm:rounded-[15px]">
-              <CardContent className="p-2 sm:p-6">
-                <div className="[font-family:'Nunito',Helvetica] font-normal text-[#5A5A5A] text-sm tracking-[0] leading-[normal] text-right pr-2">
-                  03/12/2025
-                </div>
-                <h1 className="[font-family:'Nunito',Helvetica] font-extrabold text-[#fc3850] text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0] leading-none">
-                  ETB 1000
-                </h1>
-                <div className="[font-family:'Nunito',Helvetica] font-normal text-[#5A5A5A] text-sm tracking-[0] leading-[normal] mb-6">
-                  Fixed price
-                </div>
-
-                <p className="[font-family:'Nunito',Helvetica] font-bold text-black text-xl tracking-[0] leading-7 mb-4">
-                  Brand new Lamborghini 2025 made in USA high speed and
-                  durability
-                </p>
-
-                <div className="flex items-center gap-4 mb-2">
-                  <div className="flex items-center gap-1">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8 15C10 12 12 9.5 12 7C12 4.79086 10.2091 3 8 3C5.79086 3 4 4.79086 4 7C4 9.5 6 12 8 15Z"
-                        stroke="#313131"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <circle
-                        cx="8"
-                        cy="7"
-                        r="2"
-                        stroke="#313131"
-                        stroke-width="1"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                    <span className="[font-family:'Nunito',Helvetica] font-medium text-[#313131] text-sm tracking-[0] leading-[normal]">
-                      Sebeta, Addis Ababa
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      className={"w-6 h-6"}
-                    >
-                      {/* The Box Shape */}
-                      <path d="M16.5 9.4 L 7.5 4.21 L 2.5 7.1 L 11.5 12.3" opacity="0" /> {/* Hidden guide path */}
-                      <path d="M22 17L16 20.5L10 17" />
-                      <path d="M16 20.5V9" />
-                      <path d="M22 6L22 17" />
-                      <path d="M10 17V6" />
-                      <path d="M22 6L16 2.5L10 6L16 9.5L22 6Z" />
-                      
-                      {/* Tape Detail on Box */}
-                      <path d="M13 4.5L19 8" />
-                      <path d="M16 9.5V11.5" />
-
-                      {/* Speed Lines (Left) */}
-                      <path d="M2 10H8" />
-                      <path d="M2 14H8" />
-                      <path d="M5 18H8" />
-                    </svg>
-                    <span className="[font-family:'Nunito',Helvetica] font-medium text-[#313131] text-sm tracking-[0] leading-[normal]">
-                      Free Delivery
-                    </span>
-                  </div>
-                </div>
-
-                <div className="[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-sm tracking-[0] leading-[normal]">
-                  52 views
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 pt-10">
-                  <Button 
-                    className="h-14 bg-[#fe2188] hover:bg-[#fe2188]/90 rounded-[10px] [font-family:'Nunito',Helvetica] font-bold text-white text-[20px] tracking-[0] leading-[normal]"
-                    onClick={() => setShowDownloadPopup(true)}
-                  >
-                    Chat
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="h-14 bg-[#ffc2d4] border-2 border-[#fe2188] hover:bg-[#ffe4f0] rounded-[10px] [font-family:'Nunito',Helvetica] font-bold text-[#fe2188] text-[20px] tracking-[0] leading-[normal]"
-                    onClick={() => setShowDownloadPopup(true)}
-                  >
-                    Call
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white border-0 shadow-sm rounded-none sm:rounded-[15px]">
-              <CardContent className="p-4 sm:p-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-[60px] h-[60px] bg-[#fe2188] rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="[font-family:'Nunito',Helvetica] font-bold text-white text-2xl">
-                      A
-                    </span>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="[font-family:'Nunito',Helvetica] font-bold text-black text-lg tracking-[0] leading-[normal] mb-1">
-                      Abebe Kebede Seller
-                    </h3>
-                    <p className="[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-sm tracking-[0] leading-[normal]">
-                      Last seen 2 days ago
-                    </p>
-                    <p className="[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-sm tracking-[0] leading-[normal]">
-                      2y 6m on Nisr
-                    </p>
-                  </div>
-                  <Button
-                    onClick={() => navigate("/seller/abebe-kebede")}
-                    variant="outline"
-                    className="h-10 px-6 border-2 border-[#fe2188] bg-white hover:bg-[#ffe4f0] rounded-[50px] [font-family:'Nunito',Helvetica] font-bold text-[#fe2188] text-sm tracking-[0] leading-[normal]"
-                  >
-                    Shop
-                  </Button>
-                </div>
-                <div className="grid grid-cols-2 gap-4 pt-6">
-                  <Button
-                    variant="outline"
-                    className="h-12 border-2 border-[#ffb800] bg-white hover:bg-[#fff8e6] rounded-[10px] [font-family:'Nunito',Helvetica] font-semibold text-[#ffb800] text-base tracking-[0] leading-[normal]"
-                    onClick={() => setShowDownloadPopup(true)}
-                  >
-                    Feedback
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="h-12 border-2 border-[#fc3850] bg-white hover:bg-[#ffe4f0] rounded-[10px] [font-family:'Nunito',Helvetica] font-semibold text-[#fc3850] text-base tracking-[0] leading-[normal]"
-                    onClick={() => setShowDownloadPopup(true)}
-                  >
-                    Report this ad
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <Card className="bg-white border-0 shadow-sm rounded-none sm:rounded-[15px] mt-2">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-0 sm:mb-4">
-                <h2 className="[font-family:'Nunito',Helvetica] font-bold text-black text-2xl tracking-[0] leading-[normal]">
-                  Description
-                </h2>
-                
-              </div>
-              <div>
-                <p
-                  ref={descriptionRef}
-                  className={`[font-family:'Nunito',Helvetica] font-normal text-[#313131] text-base tracking-[0] leading-6 transition-all duration-200 ${
-                    isMobileViewport && !isDescriptionExpanded
-                      ? "max-h-[4.5em] overflow-hidden"
-                      : ""
-                  }`}
-                >
-                  {descriptionText}
-                </p>
-                {isMobileViewport && shouldShowDescriptionToggle && (
-                  <button
-                    className="mt-2 text-[#fe2188] font-semibold text-sm focus:outline-none"
-                    onClick={() => setIsDescriptionExpanded((prev) => !prev)}
-                  >
-                    {isDescriptionExpanded ? "Show less" : "Show more"}
-                  </button>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-
+          {/* Details */}
+          <Details productDetail={productDetail} setShowDownloadPopup={setShowDownloadPopup} />
         </div>
 
-        <div className="">
-          <RecommendedProductsSection title="Discover More"/>
+        {/* Description */}
+        <div className="mt-4">
+          <Card className="bg-white border-0 shadow-sm rounded-none sm:rounded-[15px]">
+            <CardContent className="p-6">
+              <h2 className="font-bold text-2xl mb-4">Description</h2>
+              <p
+                ref={descriptionRef}
+                className={`text-base text-[#313131] leading-6 transition-all duration-200 ${
+                  isMobileViewport && !isDescriptionExpanded ? "max-h-[4.5em] overflow-hidden" : ""
+                }`}
+              >
+                {descriptionText}
+              </p>
+              {isMobileViewport && shouldShowDescriptionToggle && (
+                <button
+                  className="mt-3 text-[#fe2188] font-semibold text-sm"
+                  onClick={() => setIsDescriptionExpanded(p => !p)}
+                >
+                  {isDescriptionExpanded ? "Show less" : "Show more"}
+                </button>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="mt-8">
+          <RecommendedProductsSection title="Discover More" />
         </div>
       </div>
     </div>
