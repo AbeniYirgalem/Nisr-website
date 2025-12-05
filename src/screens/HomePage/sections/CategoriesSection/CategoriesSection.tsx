@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-import { Card, CardContent } from "../../../../components/ui/card";
 import displayElectronics from "../../../../assets/images/display-electronics-image.png";
 import displayFashion from "../../../../assets/images/display-fashion-image-1.png";
 import displayFurniture from "../../../../assets/images/display-furniture-image.png";

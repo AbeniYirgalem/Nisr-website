@@ -84,7 +84,7 @@ export const RecommendedProductsSection = ({
                 </div>
                 <div className="p-3">
                   <p className="[font-family:'Nunito',Helvetica] font-medium text-[#313131] text-xs tracking-[0] leading-4 mb-2 line-clamp-2">
-                    {product.desc}
+                    {product.name}
                   </p>
                   <p className="[font-family:'Nunito',Helvetica] font-extrabold text-[#120b0b] text-base tracking-[0] leading-4 mb-2">
                     {product.price}

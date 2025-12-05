@@ -1,5 +1,6 @@
 import { SearchIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { Button } from "../button";
 import { Input } from "../input";
 import iconNotification from "../../../assets/images/iconamoon-notification.svg";
@@ -14,9 +15,12 @@ interface TopAppBarSectionProps {
 
 export const TopAppBarSection = ({ onShowDownloadPopup }: TopAppBarSectionProps): JSX.Element => {
 	const navigate = useNavigate();
+	const [searchText, setSearchText] = useState("");
 
 	const handleSearch = () => {
-		navigate("/search");
+		const query = searchText.trim();
+		if (!query) return;
+		navigate(`/search?q=${encodeURIComponent(query)}`);
 	};
 
 	const renderNav = (className = "") => (
@@ -76,6 +80,11 @@ export const TopAppBarSection = ({ onShowDownloadPopup }: TopAppBarSectionProps)
 			<Input
 				type="text"
 				placeholder="Search"
+				value={searchText}
+				onChange={(e) => setSearchText(e.target.value)}
+				onKeyDown={(e) => {
+					if (e.key === "Enter") handleSearch();
+				}}
 				className="w-full h-[45px] pl-11 pr-[100px] rounded-[50px] border border-black bg-white [font-family:'Nunito',Helvetica] font-normal text-[#bcb8b8] text-2xl"
 			/>
 			<Button
@@ -163,6 +172,11 @@ export const TopAppBarSection = ({ onShowDownloadPopup }: TopAppBarSectionProps)
 							<Input
 								type="text"
 								placeholder="Search"
+								value={searchText}
+								onChange={(e) => setSearchText(e.target.value)}
+								onKeyDown={(e) => {
+									if (e.key === "Enter") handleSearch();
+								}}
 								className="w-full h-10 pl-10 pr-[90px] rounded-[50px] border border-black bg-white [font-family:'Nunito',Helvetica] font-normal text-[#bcb8b8] text-base"
 							/>
 							<Button

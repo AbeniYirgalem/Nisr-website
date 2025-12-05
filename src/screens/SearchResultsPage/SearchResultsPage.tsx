@@ -1,85 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Card, CardContent } from "../../components/ui/card";
 import { Input } from "../../components/ui/input";
 import { GetAppSection } from "../../components/ui/GetAppSection";
 import { TopAppBarSection } from "../../components/ui/TopAppBarSection";
 import AppDownloadPopup from "../../components/ui/AppDownloadPopup";
 import WaitlistPopup from "../../components/ui/WaitlistPopup";
-import img19_2 from "../../assets/images/image-19-2.png";
-import img23_1 from "../../assets/images/image-23-1.png";
-import img21_2 from "../../assets/images/image-21-2.png";
-import img24_1 from "../../assets/images/image-24-1.png";
-
-const mockProducts = [
-  {
-    id: 1,
-    image: img19_2,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa",
-    condition: "Brand New",
-  },
-  {
-    id: 2,
-    image: img23_1,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa",
-    condition: "Brand New",
-  },
-  {
-    id: 3,
-    image: img21_2,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa",
-    condition: "Brand New",
-  },
-  {
-    id: 4,
-    image: img24_1,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa",
-    condition: "Brand New",
-  },
-  {
-    id: 5,
-    image: img21_2,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa",
-    condition: "Brand New",
-  },
-  {
-    id: 6,
-    image: img24_1,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa",
-    condition: "Brand New",
-  },
-  {
-    id: 7,
-    image: img19_2,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa",
-    condition: "Brand New",
-  },
-  {
-    id: 8,
-    image: img23_1,
-    description: "Brand new Lamborghini 2025 made in USA high speed and ...",
-    price: "ETB 1,000",
-    location: "Addis Ababa",
-    condition: "Brand New",
-  },
-];
+import { searchProducts } from "../../lib/algolia";
 
 export const SearchResultsPage = (): JSX.Element => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [showDownloadPopup, setShowDownloadPopup] = useState(false);
   const [showWaitlistPopup, setShowWaitlistPopup] = useState(false);
   const [minPrice, setMinPrice] = useState("");
@@ -92,10 +23,36 @@ export const SearchResultsPage = (): JSX.Element => {
   const [sortOption, setSortOption] = useState(sortOptions[0]);
   const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
   const sortDropdownRef = useRef<HTMLDivElement | null>(null);
+  const [queryResults, setQueryResults] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const searchQuery = (searchParams.get("q") ?? "").trim();
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   });
+
+  useEffect(() => {
+    const runSearch = async () => {
+      if (!searchQuery) {
+        setQueryResults([]);
+        return;
+      }
+      setIsLoading(true);
+      setError(null);
+      try {
+        const res = await searchProducts(searchQuery, { hitsPerPage: 40 });
+        setQueryResults(res.hits ?? []);
+      } catch (err: any) {
+        setError(err?.message ?? "Search failed");
+        setQueryResults([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    runSearch();
+  }, [searchQuery]);
 
   useEffect(() => {
     if (!isSortMenuOpen) return;
@@ -359,34 +316,83 @@ export const SearchResultsPage = (): JSX.Element => {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4 md:gap-5 mb-14 lg:mb-0 auto-rows-auto justify-items-center">
-              {mockProducts.map((product) => (
-                <Card
-                  key={product.id}
-                  className="bg-[#fffdfd] rounded-[15px] border-0 shadow-none overflow-hidden cursor-pointer hover:shadow-md transition-shadow w-full max-w-[260px]"
-                  onClick={() => navigate(`/product/${product.id}`)}
-                >
-                  <CardContent className="p-0">
-                    <div className="relative w-full aspect-[4/3]">
-                      <img
-                        className="w-full h-full object-cover"
-                        alt="Product"
-                        src={product.image}
-                      />
-                    </div>
-                    <div className="p-3">
-                      <p className="[font-family:'Nunito',Helvetica] font-medium text-[#313131] text-xs tracking-[0] leading-4 mb-2 line-clamp-2">
-                        {product.description}
-                      </p>
-                      <p className="[font-family:'Nunito',Helvetica] font-extrabold text-[#120b0b] text-base tracking-[0] leading-4 mb-2">
-                        {product.price}
-                      </p>
-                      <p className="[font-family:'Nunito',Helvetica] font-medium text-[#313131] text-[11px] tracking-[0] leading-4">
-                        {product.location}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+              {isLoading && (
+                <div className="col-span-full text-center text-[#313131] [font-family:'Nunito',Helvetica]">Searching…</div>
+              )}
+              {!isLoading && error && (
+                <div className="col-span-full text-center text-red-600 [font-family:'Nunito',Helvetica]">{error}</div>
+              )}
+              {!isLoading && !error && searchQuery === "" && (
+                <div className="col-span-full text-center text-[#313131] [font-family:'Nunito',Helvetica]">
+                  Enter a search to see products.
+                </div>
+              )}
+              {!isLoading && !error && searchQuery !== "" && queryResults.length === 0 && (
+                <div className="col-span-full text-center text-[#313131] [font-family:'Nunito',Helvetica]">
+                  No products found for “{searchQuery}”.
+                </div>
+              )}
+
+              {queryResults.map((product: any) => {
+                // Normalize Algolia hit fields to our UI expectations
+                const id = product.id;
+                const name = product.name ?? "Product";
+                const price = product.price ?? "0";
+                const baseDescription = product.desc ?? "";
+                const image = product.imgList?.[0] ?? "";
+
+                // Derive a concise label from condition and delivery/negotiable flags
+                const condition = product.condition ?? "";
+                const freeDelivery = product.freeDelivery ?? null;
+                const negotiable = product.negotiable ?? null;
+
+                let otherDesc = "";
+                if (freeDelivery === true) {
+                  otherDesc = "Free delivery";
+                } else if (negotiable === true) {
+                  otherDesc = "Negotiable";
+                } else if (freeDelivery === false) {
+                  otherDesc = "Paid delivery";
+                } else if (negotiable === false) {
+                  otherDesc = "Fixed price";
+                }
+
+                const derivedDescription = condition
+                  ? `${condition}${otherDesc ? ` • ${otherDesc}` : ""}`
+                  : otherDesc;
+
+                const cardDescription = derivedDescription || baseDescription;
+
+                return (
+                  <Card
+                    key={id || name}
+                    className="bg-[#fffdfd] rounded-[15px] border-0 shadow-none overflow-hidden cursor-pointer hover:shadow-md transition-shadow w-full max-w-[260px]"
+                    onClick={() => id && navigate(`/product/${id}`)}
+                  >
+                    <CardContent className="p-0">
+                      <div className="relative w-full aspect-[4/3]">
+                        <img
+                          className="w-full h-full object-cover"
+                          alt={name}
+                          src={image}
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="p-3">
+                        <p className="[font-family:'Nunito',Helvetica] font-medium text-[#313131] text-xs tracking-[0] leading-4 mb-2 line-clamp-2">
+                          {name}
+                        </p>
+                        <p className="[font-family:'Nunito',Helvetica] font-extrabold text-[#120b0b] text-base tracking-[0] leading-4 mb-2">
+                          {price ? `ETB ${price}` : ""}
+                        </p>
+                        <p className="[font-family:'Nunito',Helvetica] font-medium text-[#313131] text-[11px] tracking-[0] leading-4">
+                          {cardDescription}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </main>
         </div>
