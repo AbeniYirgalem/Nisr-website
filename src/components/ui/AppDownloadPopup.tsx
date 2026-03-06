@@ -8,11 +8,13 @@ interface AppDownloadPopupProps {
 
 const brandColor = '#FE2188';
 const downloadUrl = 'https://shorturl.at/2cujp';
+const appVersion = 'v1.0.1  ';
+const appSize = '19 MB';
 
 const AppDownloadPopup: React.FC<AppDownloadPopupProps> = ({ isOpen, onClose, onWaitlistClick }) => {
-  if (!isOpen) return null;
-
   const [isDownloading, setIsDownloading] = useState(false);
+
+  if (!isOpen) return null;
 
   const handleDownload = () => {
     if (isDownloading) return;
@@ -24,12 +26,10 @@ const AppDownloadPopup: React.FC<AppDownloadPopupProps> = ({ isOpen, onClose, on
   };
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       ></div>
-      {/* Card */}
       <div className="relative bg-white w-full max-w-md rounded-[32px] shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
         <div className="absolute -top-24 -left-24 w-64 h-64 rounded-full opacity-10" style={{ backgroundColor: brandColor }}></div>
         <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-10" style={{ backgroundColor: brandColor }}></div>
@@ -43,66 +43,83 @@ const AppDownloadPopup: React.FC<AppDownloadPopupProps> = ({ isOpen, onClose, on
           </svg>
         </button>
         <div className="flex flex-col items-center px-8 py-10 text-center relative z-0">
-          <div className="mb-6 p-4 rounded-2xl shadow-lg bg-white">
-            <svg 
-              width="64" 
-              height="64" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke={brandColor} 
-              strokeWidth="1.5" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            >
-              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-              <line x1="12" y1="18" x2="12.01" y2="18"></line>
-            </svg>
+          <div className="mb-6 p-3 rounded-2xl shadow-lg bg-white">
+            <img
+              src="/favicon.png"
+              alt="Nisr Market logo"
+              className="w-16 h-16 rounded-2xl object-cover"
+            />
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2 font-['Nunito']">
             Buy & Sell in Your Pocket
           </h2>
           <p className="text-gray-500 mb-8 text-sm leading-relaxed font-['Nunito']">
-            Connect directly with buyers and sellers nearby. 
-            Experience the fastest <span className="font-bold" style={{ color: brandColor }}>P2P marketplace</span> with zero fees on your first sale!
+            Experience the fastest <span className="font-bold" style={{ color: brandColor }}>P2P marketplace</span> with zero fees on your each sale!
           </p>
+
           <div className="flex flex-col w-full gap-3">
+            <div className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-4 py-2 text-xs text-gray-600">
+              <svg className="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V6l8-3 8 3v7Z"></path>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+              <span className="font-semibold text-gray-700">Verified download</span>
+              <span>•</span>
+              <span>{appVersion}</span>
+              <span>•</span>
+              <span>{appSize}</span>
+            </div>
+
             <button
               className="flex items-center justify-center w-full px-4 py-3 text-white rounded-xl hover:opacity-90 transition-opacity shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
               style={{ backgroundColor: brandColor }}
               onClick={handleDownload}
               disabled={isDownloading}
             >
+              
               <svg className="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M7.125 2.25L8.575 4.775C9.6 4.3 10.75 4.025 12 4.025C13.25 4.025 14.4 4.3 15.425 4.775L16.875 2.25C17.05 1.95 17.45 1.85 17.75 2.025C18.05 2.2 18.15 2.6 17.975 2.9L16.475 5.5C18.7 6.725 20.2 9.05 20.45 11.75H3.55C3.8 9.05 5.3 6.725 7.525 5.5L6.025 2.9C5.85 2.6 5.95 2.2 6.25 2.025C6.55 1.85 6.95 1.95 7.125 2.25ZM5.25 13.5H18.75V20.25C18.75 21.5 17.75 22.5 16.5 22.5H7.5C6.25 22.5 5.25 21.5 5.25 20.25V13.5ZM8.25 9.25C8.25 9.8 8.7 10.25 9.25 10.25C9.8 10.25 10.25 9.8 10.25 9.25C10.25 8.7 9.8 8.25 9.25 8.25C8.7 8.25 8.25 8.7 8.25 9.25ZM14.75 10.25C15.3 10.25 15.75 9.8 15.75 9.25C15.75 8.7 15.3 8.25 14.75 8.25C14.2 8.25 13.75 8.7 13.75 9.25C13.75 9.8 14.2 10.25 14.75 10.25Z" />
                 </svg> 
                <div className="text-left">
                 <div className="text-[10px] leading-none">GET Nisr Market</div>
-                <div className="text-sm font-bold leading-tight">{isDownloading ? 'Preparing download...' : 'Download the App'}</div>
+                <div className="text-lg font-bold leading-tight">{isDownloading ? 'Preparing download...' : 'Download the App'}</div>
               </div>
             </button>
 
+            
+
             <button 
-              className="flex items-center justify-center w-full px-4 py-3 rounded-xl transition-colors"
+              className="flex items-center justify-center w-full px-4 py-3 rounded-xl border bg-white transition-colors"
               style={{ 
-                backgroundColor: `${brandColor}1A`, // 1A is roughly 10% opacity in Hex
+                borderColor: `${brandColor}66`,
                 color: brandColor 
               }}
               onClick={onWaitlistClick}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = `${brandColor}26`} // Darker on hover
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = `${brandColor}1A`}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = `${brandColor}14`}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
             >
               <svg className="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 19.93C7.05 19.44 4 16.08 4 12C4 11.38 4.08 10.79 4.21 10.21L9 15V16C9 17.1 9.9 18 11 18V19.93ZM17.9 17.39C17.64 16.58 16.9 16 16 16H15V13C15 12.45 14.55 12 14 12H8V10H10C10.55 10 11 9.55 11 9V7H13C14.1 7 15 6.1 15 5V4.59C17.93 5.78 20 8.65 20 12C20 14.08 19.2 15.97 17.9 17.39Z" />
               </svg>
               <div className="text-left">
                 <div className="text-[10px] leading-none font-semibold">FULL WEB VERSION</div>
-                <div className="text-sm font-bold leading-tight">Join the waitlist</div>
+                <div className="text-base font-bold leading-tight">Join the waitlist</div>
               </div>
             </button>
           </div>
           <p className="mt-6 text-xs text-gray-400">
-            When you download our app, your browser will likely show a 'Harmful file' warning. This is standard for apps downloaded outside the Play Store. Please select 'Keep' or 'Download Anyway' to proceed.
-            <br />
+            
+
+            <div className="w-full rounded-xl border border-blue-100 bg-blue-50 px-4 py-3 text-left text-sm text-blue-900">
+              <div className="flex items-start gap-2">
+                <svg className="mt-0.5 w-4 h-4 shrink-0 text-blue-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V6l8-3 8 3v7Z"></path>
+                </svg>
+                <p>
+                  <span className="font-semibold">Note:</span> Because we are downlaoding from website, your browser will ask you to confirm the download. Tap "Download Anyway" to proceed safely.
+                </p>
+              </div>
+            </div>
             If you have any problems or concerns, please contact us here: <a href="mailto:nisrmarket@gmail.com" className="text-pink-600">nisrmarket@gmail.com</a>
           </p>
         </div>
